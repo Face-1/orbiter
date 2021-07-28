@@ -4,10 +4,10 @@
 add_subdirectory(Date)
 add_subdirectory(fchecksum)
 add_subdirectory(meshc)
-#add_subdirectory(Pltex)
+add_subdirectory(Pltex)
 add_subdirectory(Shipedit)
 add_subdirectory(scramble)
-#add_subdirectory(texpack)
+add_subdirectory(texpack)
 
 # We do this as an external project to invoke x64 toolchain
 ExternalProject_Add(plsplit
