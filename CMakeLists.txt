@@ -340,8 +340,8 @@ include(CPack)
 # Sub-projects
 add_subdirectory(Src)
 add_subdirectory(Utils)
-add_subdirectory(Orbitersdk)
-add_subdirectory(OVP)
+#add_subdirectory(Orbitersdk)
+#add_subdirectory(OVP)
 
 if(ORBITER_MAKE_DOC)
 	add_subdirectory(Doc)
