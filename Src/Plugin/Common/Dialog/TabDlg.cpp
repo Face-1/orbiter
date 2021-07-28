@@ -39,7 +39,7 @@ void TabbedDialog::Open (HINSTANCE hInstance, bool allowMulti)
 {
 	if (hDlg) return;
 	hInst = hInstance;
-	hDlg = oapiOpenDialogEx (hInst, dlgId, DlgProcHook, allowMulti ? DLG_ALLOWMULTI:0, this);
+	hDlg = oapiOpenDialogEx (hInst, dlgId, (DLGPROC)DlgProcHook, allowMulti ? DLG_ALLOWMULTI:0, this);
 }
 
 // --------------------------------------------------------------
@@ -152,12 +152,12 @@ BOOL TabbedDialog::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 static BOOL CALLBACK DlgProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	if (uMsg == WM_INITDIALOG) {
-		SetWindowLong (hWnd, GWL_USERDATA, (LONG)lParam);
+		SetWindowLongPtr (hWnd, GWLP_USERDATA, (LONG_PTR)lParam);
 		// store class pointer with window
 		((TabbedDialog*)lParam)->hDlg = hWnd;
 		// store window handle here so it's available in OnInitDialog
 	}
-	TabbedDialog *dlg = (TabbedDialog*)GetWindowLong (hWnd, GWL_USERDATA);
+	TabbedDialog *dlg = (TabbedDialog*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 	if (dlg) return dlg->DlgProc (hWnd, uMsg, wParam, lParam);
 	else     return oapiDefDialogProc (hWnd, uMsg, wParam, lParam);
 }
@@ -179,7 +179,7 @@ TabPage::TabPage (TabbedDialog *frame, int _pageId)
 
 void TabPage::Open ()
 {
-	hTab = CreateDialogParam (dlg->hInst, MAKEINTRESOURCE(pageId), dlg->hDlg, TabProcHook, (LPARAM)this);
+	hTab = CreateDialogParam (dlg->hInst, MAKEINTRESOURCE(pageId), dlg->hDlg, (DLGPROC)TabProcHook, (LPARAM)this);
 }
 
 // --------------------------------------------------------------
@@ -216,10 +216,10 @@ static BOOL CALLBACK TabProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 {
 	if (uMsg == WM_INITDIALOG) {
 		EnableThemeDialogTexture (hWnd, ETDT_ENABLETAB);
-		SetWindowLong (hWnd, GWL_USERDATA, lParam);
+		SetWindowLongPtr (hWnd, GWLP_USERDATA, lParam);
 		((TabPage*)lParam)->hTab = hWnd;
 	}
-	TabPage *pTab = (TabPage*)GetWindowLong (hWnd, GWL_USERDATA);
+	TabPage *pTab = (TabPage*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 	if (pTab) return pTab->DlgProc (hWnd, uMsg, wParam, lParam);
 	else      return FALSE;
 }

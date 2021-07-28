@@ -47,7 +47,7 @@ char *AtlantisConfig::Description()
 bool AtlantisConfig::clbkOpen (HWND hLaunchpad)
 {
 	// respond to user double-clicking the item in the list
-	return OpenDialog (gParams.hInst, hLaunchpad, IDD_ACONFIG, DlgProc);
+	return OpenDialog (gParams.hInst, hLaunchpad, IDD_ACONFIG, (DLGPROC)DlgProc);
 }
 
 bool AtlantisConfig::TexHiresEnabled () const
@@ -120,7 +120,7 @@ BOOL CALLBACK AtlantisConfig::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDOK:
-			((AtlantisConfig*)GetWindowLong (hWnd, DWL_USER))->Apply (hWnd);
+			((AtlantisConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->Apply (hWnd);
 			EndDialog (hWnd, 0);
 			return 0;
 		case IDCANCEL:

@@ -29,7 +29,7 @@ char *ConsoleConfig::Description ()
 bool ConsoleConfig::clbkOpen (HWND hLaunchpad)
 {
 	cc = this; // keep a global pointer to be used by the message handlers (ugly)
-	return OpenDialog (hModule, hLaunchpad, IDD_CONFIG, DlgProc);
+	return OpenDialog (hModule, hLaunchpad, IDD_CONFIG, (DLGPROC)DlgProc);
 }
 
 int ConsoleConfig::clbkWriteConfig ()

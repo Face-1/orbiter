@@ -451,7 +451,7 @@ HRESULT Orbiter::Create (HINSTANCE hInstance, TCHAR* strCmdLine)
 	SplitterCtrl::RegisterClass (hInstance);
 
 	if (pConfig->CfgDemoPrm.bBkImage) {
-		hBk = CreateDialog (hInstance, MAKEINTRESOURCE(IDD_DEMOBK), NULL, BkMsgProc);
+		hBk = CreateDialog (hInstance, MAKEINTRESOURCE(IDD_DEMOBK), NULL, (DLGPROC)BkMsgProc);
 		ShowWindow (hBk, SW_MAXIMIZE);
 	}
 	
@@ -1267,7 +1267,7 @@ bool Orbiter::ParseConsoleCmd ()
 		ConsoleOut (cbuf);
 	} else if (!_strnicmp (cmd, "gui", 3)) {
 		if (!DestroyServerGuiDlg())
-			hServerWnd = CreateDialog (hInst, MAKEINTRESOURCE(IDD_SERVER), hDlg, ServerDlgProc);
+			hServerWnd = CreateDialog (hInst, MAKEINTRESOURCE(IDD_SERVER), hDlg, (DLGPROC)ServerDlgProc);
 	}
 	return false;
 }

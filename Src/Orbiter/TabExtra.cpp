@@ -306,7 +306,7 @@ BOOL CALLBACK BuiltinLaunchpadItem::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:
-		SetWindowLong (hWnd, DWL_USER, lParam);
+		SetWindowLongPtr (hWnd, DWLP_USER, lParam);
 		return TRUE;
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
@@ -358,7 +358,7 @@ char *ExtraDynamics::Description ()
 
 bool ExtraDynamics::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_DYNAMICS, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_DYNAMICS, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -533,16 +533,16 @@ BOOL CALLBACK ExtraDynamics::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		case IDC_PROP_ACTIVE2:
 		case IDC_PROP_ACTIVE3:
 		case IDC_PROP_ACTIVE4:
-			((ExtraDynamics*)GetWindowLong (hWnd, DWL_USER))->Activate (hWnd, LOWORD(wParam));
+			((ExtraDynamics*)GetWindowLongPtr (hWnd, DWLP_USER))->Activate (hWnd, LOWORD(wParam));
 			break;
 		case IDC_RESET:
-			((ExtraDynamics*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraDynamics*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDCHELP:
-			((ExtraDynamics*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraDynamics*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraDynamics*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraDynamics*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -784,7 +784,7 @@ char *ExtraStabilisation::Description ()
 
 bool ExtraStabilisation::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_STABILISATION, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_STABILISATION, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -880,18 +880,18 @@ BOOL CALLBACK ExtraStabilisation::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, 
 		switch (LOWORD (wParam)) {
 		case IDC_STAB_ENABLE:
 			if (HIWORD (wParam) == BN_CLICKED) {
-				((ExtraStabilisation*)GetWindowLong (hWnd, DWL_USER))->ToggleEnable (hWnd);
+				((ExtraStabilisation*)GetWindowLongPtr (hWnd, DWLP_USER))->ToggleEnable (hWnd);
 				return TRUE;
 			}
 			break;
 		case IDC_BUTTON1:
-			((ExtraStabilisation*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraStabilisation*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraStabilisation*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraStabilisation*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraStabilisation*)GetWindowLong (hWnd, DWL_USER))->StoreParams(hWnd))
+			if (((ExtraStabilisation*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams(hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -933,7 +933,7 @@ char *ExtraMfdConfig::Description ()
 
 bool ExtraMfdConfig::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_MFDCONFIG, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_MFDCONFIG, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1014,13 +1014,13 @@ BOOL CALLBACK ExtraMfdConfig::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraMfdConfig*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraMfdConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraMfdConfig*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraMfdConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraMfdConfig*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraMfdConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1092,7 +1092,7 @@ char *ExtraShutdown::Description ()
 
 bool ExtraShutdown::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_SHUTDOWN, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_SHUTDOWN, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1138,13 +1138,13 @@ BOOL CALLBACK ExtraShutdown::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraShutdown*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraShutdown*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraShutdown*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraShutdown*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraShutdown*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraShutdown*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1170,7 +1170,7 @@ char *ExtraFixedStep::Description ()
 
 bool ExtraFixedStep::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_FIXEDSTEP, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_FIXEDSTEP, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1237,18 +1237,18 @@ BOOL CALLBACK ExtraFixedStep::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 		switch (LOWORD (wParam)) {
 		case IDC_CHECK1:
 			if (HIWORD (wParam) == BN_CLICKED) {
-				((ExtraFixedStep*)GetWindowLong (hWnd, DWL_USER))->ToggleEnable (hWnd);
+				((ExtraFixedStep*)GetWindowLongPtr (hWnd, DWLP_USER))->ToggleEnable (hWnd);
 				return TRUE;
 			}
 			break;
 		case IDC_BUTTON1:
-			((ExtraFixedStep*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraFixedStep*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraFixedStep*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraFixedStep*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraFixedStep*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraFixedStep*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1274,7 +1274,7 @@ char *ExtraRenderingOptions::Description ()
 
 bool ExtraRenderingOptions::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_DBGRENDER, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_DBGRENDER, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1312,13 +1312,13 @@ BOOL CALLBACK ExtraRenderingOptions::DlgProc (HWND hWnd, UINT uMsg, WPARAM wPara
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraRenderingOptions*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraRenderingOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 	//	case IDC_BUTTON2:
-	//		((ExtraTimerSettings*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+	//		((ExtraTimerSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 	//		return 0;
 		case IDOK:
-			if (((ExtraRenderingOptions*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraRenderingOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1344,7 +1344,7 @@ char *ExtraTimerSettings::Description ()
 
 bool ExtraTimerSettings::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_TIMER, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_TIMER, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1392,13 +1392,13 @@ BOOL CALLBACK ExtraTimerSettings::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, 
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraTimerSettings*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraTimerSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraTimerSettings*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraTimerSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraTimerSettings*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraTimerSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1424,7 +1424,7 @@ char *ExtraPerformanceSettings::Description ()
 
 bool ExtraPerformanceSettings::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_PERFORMANCE, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_PERFORMANCE, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1472,13 +1472,13 @@ BOOL CALLBACK ExtraPerformanceSettings::DlgProc (HWND hWnd, UINT uMsg, WPARAM wP
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraPerformanceSettings*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraPerformanceSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		case IDC_BUTTON2:
-			((ExtraPerformanceSettings*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((ExtraPerformanceSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDOK:
-			if (((ExtraPerformanceSettings*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraPerformanceSettings*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1505,7 +1505,7 @@ char *ExtraLaunchpadOptions::Description ()
 
 bool ExtraLaunchpadOptions::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_LAUNCHPAD, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_LAUNCHPAD, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1554,13 +1554,13 @@ BOOL CALLBACK ExtraLaunchpadOptions::DlgProc (HWND hWnd, UINT uMsg, WPARAM wPara
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraLaunchpadOptions*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraLaunchpadOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		//case IDC_BUTTON2:
-		//	((ExtraLaunchpadOptions*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+		//	((ExtraLaunchpadOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 		//	return 0;
 		case IDOK:
-			if (((ExtraLaunchpadOptions*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraLaunchpadOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}
@@ -1587,7 +1587,7 @@ char *ExtraLogfileOptions::Description ()
 
 bool ExtraLogfileOptions::clbkOpen (HWND hParent)
 {
-	OpenDialog (hParent, IDD_EXTRA_LOGFILE, DlgProc);
+	OpenDialog (hParent, IDD_EXTRA_LOGFILE, (DLGPROC)DlgProc);
 	return true;
 }
 
@@ -1623,13 +1623,13 @@ BOOL CALLBACK ExtraLogfileOptions::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam,
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDC_BUTTON1:
-			((ExtraLogfileOptions*)GetWindowLong (hWnd, DWL_USER))->ResetDialog (hWnd);
+			((ExtraLogfileOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->ResetDialog (hWnd);
 			return 0;
 		//case IDC_BUTTON2:
-		//	((ExtraLogfileOptions*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+		//	((ExtraLogfileOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 		//	return 0;
 		case IDOK:
-			if (((ExtraLogfileOptions*)GetWindowLong (hWnd, DWL_USER))->StoreParams (hWnd))
+			if (((ExtraLogfileOptions*)GetWindowLongPtr (hWnd, DWLP_USER))->StoreParams (hWnd))
 				EndDialog (hWnd, 0);
 			break;
 		}

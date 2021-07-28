@@ -159,7 +159,7 @@ BOOL CALLBACK VhelperTab::DlgProcInit (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 	switch (uMsg) {
 	case WM_INITDIALOG:
 		EnableThemeDialogTexture (hWnd, ETDT_ENABLETAB);
-		SetWindowLong (hWnd, DWL_USER, lParam);
+		SetWindowLongPtr (hWnd, DWLP_USER, lParam);
 		return TRUE;
 	}
 	return FALSE;
@@ -169,7 +169,7 @@ BOOL CALLBACK VhelperTab::DlgProcInit (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 // ======================================================================
 // ======================================================================
 
-TabPlanetarium::TabPlanetarium (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_PLANETARIUM, DlgProc)
+TabPlanetarium::TabPlanetarium (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_PLANETARIUM, (DLGPROC)DlgProc)
 {
 }
 
@@ -208,7 +208,7 @@ char *TabPlanetarium::HelpContext () const
 BOOL CALLBACK TabPlanetarium::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	VhelperTab::DlgProcInit (hWnd, uMsg, wParam, lParam);
-	TabPlanetarium *pTab = (TabPlanetarium*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLong(hWnd,DWL_USER));
+	TabPlanetarium *pTab = (TabPlanetarium*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLongPtr(hWnd,DWLP_USER));
 
 	switch (uMsg) {
 	case WM_INITDIALOG: {
@@ -265,7 +265,7 @@ BOOL CALLBACK TabPlanetarium::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 // ======================================================================
 // ======================================================================
 
-TabForces::TabForces (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_BODYFORCE, DlgProc)
+TabForces::TabForces (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_BODYFORCE, (DLGPROC)DlgProc)
 {
 }
 
@@ -312,7 +312,7 @@ char *TabForces::HelpContext () const
 BOOL CALLBACK TabForces::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	VhelperTab::DlgProcInit (hWnd, uMsg, wParam, lParam);
-	TabForces *pTab = (TabForces*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLong(hWnd,DWL_USER));
+	TabForces *pTab = (TabForces*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLongPtr(hWnd,DWLP_USER));
 
 	switch (uMsg) {
 	case WM_INITDIALOG: {
@@ -375,7 +375,7 @@ BOOL CALLBACK TabForces::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 // ======================================================================
 // ======================================================================
 
-TabAxes::TabAxes (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_COORDINATES, DlgProc)
+TabAxes::TabAxes (HWND hParentTab): VhelperTab (hParentTab, IDD_VHELP_COORDINATES, (DLGPROC)DlgProc)
 {
 }
 
@@ -417,7 +417,7 @@ char *TabAxes::HelpContext () const
 BOOL CALLBACK TabAxes::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	VhelperTab::DlgProcInit (hWnd, uMsg, wParam, lParam);
-	TabAxes *pTab = (TabAxes*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLong(hWnd,DWL_USER));
+	TabAxes *pTab = (TabAxes*)(uMsg == WM_INITDIALOG ? lParam : GetWindowLongPtr(hWnd,DWLP_USER));
 
 	switch (uMsg) {
 	case WM_INITDIALOG: {

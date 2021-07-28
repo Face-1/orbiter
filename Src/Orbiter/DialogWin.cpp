@@ -32,7 +32,7 @@ DialogWin::DialogWin (HINSTANCE hInstance, HWND hParent, int resourceId,
 	hPrnt   = hParent;
 	hWnd    = NULL;
 	pos     = NULL;
-	dlgproc = (pDlg ? pDlg : DlgProc);
+	dlgproc = (pDlg ? pDlg : (DLGPROC)DlgProc);
 
 	memset (tbtn, 0, 5*sizeof(TitleBtn));
 	//int i = 0;
@@ -83,7 +83,7 @@ HWND DialogWin::OpenWindow ()
 			(LPARAM)context);
 		newwin = true;
 	}
-	SetWindowLong (hWnd, DWL_USER, (LONG)this);
+	SetWindowLongPtr (hWnd, DWLP_USER, (LONG_PTR)this);
 	if (newwin && pos && pos->right-pos->left) {
 		if (GetWindowLong (hWnd, GWL_STYLE) & WS_SIZEBOX)
 			SetWindowPos (hWnd, NULL, pos->left, pos->top, pos->right-pos->left, pos->bottom-pos->top, SWP_NOZORDER);
@@ -206,7 +206,7 @@ void DialogWin::ToggleShrink ()
 
 DialogWin *DialogWin::GetDialogWin (HWND hDlg)
 {
-	DialogWin *dlg = (DialogWin*)GetWindowLong (hDlg, DWL_USER);
+	DialogWin *dlg = (DialogWin*)GetWindowLongPtr (hDlg, DWLP_USER);
 	if (!dlg)
 		dlg = dlg_create;
 	return dlg;

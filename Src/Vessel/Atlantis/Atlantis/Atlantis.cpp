@@ -2188,7 +2188,7 @@ int Atlantis::clbkConsumeBufferedKey (DWORD key, bool down, char *kstate)
 	} else if (KEYMOD_CONTROL (kstate)) {
 		switch (key) {
 		case OAPI_KEY_SPACE: // open RMS control dialog
-			oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, Atlantis_DlgProc, 0, this);
+			oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, (DLGPROC)Atlantis_DlgProc, 0, this);
 			return 1;
 		case OAPI_KEY_B: // deploy/retract speedbrake
 			if (!Playback()) RevertSpeedbrake ();
@@ -2286,7 +2286,7 @@ BOOL CALLBACK Atlantis_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 			sts->plop->OpenDialog ();
 			break;
 		case IDC_RMSOP:
-			oapiOpenDialogEx (g_Param.hDLL, IDD_RMS, RMS_DlgProc, 0, sts);
+			oapiOpenDialogEx (g_Param.hDLL, IDD_RMS, (DLGPROC)RMS_DlgProc, 0, sts);
 			break;
 		}
 		break;

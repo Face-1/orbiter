@@ -122,7 +122,7 @@ void AtmConfig::Write (const char *celbody)
 bool AtmConfig::clbkOpen (HWND hLaunchpad)
 {
 	// respond to user double-clicking the item in the list
-	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, DlgProc);
+	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, (DLGPROC)DlgProc);
 }
 
 void AtmConfig::InitDialog (HWND hWnd)
@@ -280,28 +280,28 @@ BOOL CALLBACK AtmConfig::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:
-		SetWindowLong (hWnd, DWL_USER, (LONG)lParam); // store class instance for later reference
+		SetWindowLongPtr (hWnd, DWLP_USER, (LONG_PTR)lParam); // store class instance for later reference
 		((AtmConfig*)lParam)->InitDialog (hWnd);
 		break;
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {
 		case IDOK:
-			((AtmConfig*)GetWindowLong (hWnd, DWL_USER))->Apply (hWnd);
+			((AtmConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->Apply (hWnd);
 			//EndDialog (hWnd, 0);
 			return 0;
 		case IDCANCEL:
 			EndDialog (hWnd, 0);
 			return 0;
 		case IDC_BUTTON1:
-			((AtmConfig*)GetWindowLong (hWnd, DWL_USER))->OpenHelp (hWnd);
+			((AtmConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->OpenHelp (hWnd);
 			return 0;
 		case IDC_COMBO1:
 			if (HIWORD (wParam) == CBN_SELCHANGE)
-				((AtmConfig*)GetWindowLong (hWnd, DWL_USER))->ModelChanged (hWnd);
+				((AtmConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->ModelChanged (hWnd);
 			return 0;
 		case IDC_COMBO2:
 			if (HIWORD (wParam) == CBN_SELCHANGE)
-				((AtmConfig*)GetWindowLong (hWnd, DWL_USER))->CelbodyChanged (hWnd);
+				((AtmConfig*)GetWindowLongPtr (hWnd, DWLP_USER))->CelbodyChanged (hWnd);
 			return 0;
 		}
 		break;

@@ -19,7 +19,7 @@ bool TrackIRconfig::clbkOpen (HWND hLaunchpad)
 {
 	// respond to user double-clicking the item in the list
 	tirc = this; // keep a global pointer to be used by the message handlers
-	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, DlgProc);
+	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, (DLGPROC)DlgProc);
 }
 
 int TrackIRconfig::clbkWriteConfig ()
@@ -53,19 +53,19 @@ void TrackIRconfig::InitDialog (HWND hDlg)
 
 	strcpy (cbuf, "Mode");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 0, (LPARAM)&tie);
-	hTab[0] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_MODE), hDlg, TabProc_mode);
+	hTab[0] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_MODE), hDlg, (DLGPROC)TabProc_mode);
 
 	strcpy (cbuf, "VC");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 1, (LPARAM)&tie);
-	hTab[1] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_VC), hDlg, TabProc_cfg);
+	hTab[1] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_VC), hDlg, (DLGPROC)TabProc_cfg);
 
 	strcpy (cbuf, "Track");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 2, (LPARAM)&tie);
-	hTab[2] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_TRACK), hDlg, TabProc_trk);
+	hTab[2] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_TRACK), hDlg, (DLGPROC)TabProc_trk);
 
 	strcpy (cbuf, "Diagnostic");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 3, (LPARAM)&tie);
-	hTab[3] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_DIAGNOSTIC), hDlg, TabProc_diag);
+	hTab[3] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_DIAGNOSTIC), hDlg, (DLGPROC)TabProc_diag);
 
 	SwitchTab (hDlg);
 }

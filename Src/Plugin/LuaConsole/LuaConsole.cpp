@@ -155,7 +155,7 @@ HWND LuaConsole::Open ()
 {
 	// open the terminal dialog
 	if (oapiFindDialog (hModule, IDD_CONSOLE)) return NULL; // console open already
-	hWnd = oapiOpenDialogEx (hModule, IDD_CONSOLE, DlgProc, 0, this);
+	hWnd = oapiOpenDialogEx (hModule, IDD_CONSOLE, (DLGPROC)DlgProc, 0, this);
 	hTerm = GetDlgItem (hWnd, IDC_TERM);
 
 	// get some text parameters
@@ -510,7 +510,7 @@ LRESULT WINAPI LuaConsole::TermProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
 
 LRESULT WINAPI LuaConsole::TermProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	LuaConsole *pConsole = (LuaConsole*)GetWindowLong (hWnd, GWL_USERDATA);
+	LuaConsole *pConsole = (LuaConsole*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 	return pConsole->TermProc (hWnd, uMsg, wParam, lParam);
 }
 
@@ -524,7 +524,7 @@ BOOL CALLBACK LuaConsole::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 	case WM_INITDIALOG:
 		SetFocus (GetDlgItem (hWnd, IDC_TERM));
 		pConsole = (LuaConsole*)lParam;
-		SetWindowLong (GetDlgItem (hWnd, IDC_TERM), GWL_USERDATA, (LONG)pConsole);
+		SetWindowLongPtr (GetDlgItem (hWnd, IDC_TERM), GWLP_USERDATA, (LONG_PTR)pConsole);
 		return FALSE;
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {

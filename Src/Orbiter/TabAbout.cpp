@@ -69,7 +69,7 @@ BOOL AboutTab::TabProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			ShellExecute (NULL, "open", "http://orbit.medphys.ucl.ac.uk/", NULL, NULL, SW_SHOWNORMAL);
 			return true;
 		case IDC_ABT_DISCLAIM:
-			DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_MSG), pLp->GetWindow(), AboutProc,
+			DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_MSG), pLp->GetWindow(), (DLGPROC)AboutProc,
 				IDT_DISCLAIMER);
 			return TRUE;
 		case IDC_ABT_CREDIT:

@@ -2594,6 +2594,6 @@ BOOL CALLBACK EdPg1Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // --------------------------------------------------------------
 DLLCLBK void secInit (HWND hEditor, OBJHANDLE hVessel)
 {
-	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, EdPg1Proc};
+	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, (DLGPROC)EdPg1Proc};
 	SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps1);
 }

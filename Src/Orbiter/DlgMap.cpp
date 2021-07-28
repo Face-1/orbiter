@@ -59,7 +59,7 @@ void MapWin::RegisterWindow (HINSTANCE hInst)
 	// Register map window class
 	WNDCLASS wndClass;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = Map_WndProc;
+	wndClass.lpfnWndProc   = (WNDPROC)Map_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hInst;
@@ -106,7 +106,7 @@ int MapWin::Destroy ()
 void MapWin::PostCreation (HWND hw)
 {
 	hWnd = hw;
-	SetWindowLong (hWnd, GWL_USERDATA, (LONG)this);
+	SetWindowLongPtr (hWnd, GWLP_USERDATA, (LONG_PTR)this);
 }
 
 // ======================================================================
@@ -284,7 +284,7 @@ bool MapWin::FindTarget (int mx, int my)
 
 MapWin *MapWin::GetMapInstance (HWND hw)
 {
-	MapWin *map = (MapWin*)GetWindowLong (hw, GWL_USERDATA);
+	MapWin *map = (MapWin*)GetWindowLongPtr (hw, GWLP_USERDATA);
 	if (!map) map = map_in_creation;
 	return map;
 }

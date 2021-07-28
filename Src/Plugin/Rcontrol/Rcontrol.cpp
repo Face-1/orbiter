@@ -138,7 +138,7 @@ DLLCLBK void ExitModule (HINSTANCE hDLL)
 // Open the dialog box
 void OpenDlgClbk (void *context)
 {
-	HWND hDlg = oapiOpenDialog (g_Param.hDLL, IDD_INTERFACE, DlgProc);
+	HWND hDlg = oapiOpenDialog (g_Param.hDLL, IDD_INTERFACE, (DLGPROC)DlgProc);
 	if (hDlg) {
 		g_Param.hDlg = hDlg;
 

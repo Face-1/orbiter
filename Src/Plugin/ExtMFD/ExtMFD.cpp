@@ -62,7 +62,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	// Register a window classes for the MFD display and buttons
 	WNDCLASS wndClass;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = MFD_WndProc;
+	wndClass.lpfnWndProc   = (WNDPROC)MFD_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hDLL;
@@ -73,7 +73,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	wndClass.lpszClassName = "ExtMFD_Display";
 	RegisterClass (&wndClass);
 
-	wndClass.lpfnWndProc   = MFD_BtnProc;
+	wndClass.lpfnWndProc   = (WNDPROC)MFD_BtnProc;
 	wndClass.hbrBackground = (HBRUSH)GetStockObject (LTGRAY_BRUSH);
 	wndClass.lpszClassName = "ExtMFD_Button";
 	RegisterClass (&wndClass);

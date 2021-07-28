@@ -1551,7 +1551,7 @@ int DeltaGlider::clbkConsumeBufferedKey (DWORD key, bool down, char *kstate)
 	if (Playback()) return 0; // don't allow manual user input during a playback
 
 	if (!KEYMOD_ALT (kstate) && !KEYMOD_SHIFT (kstate) && KEYMOD_CONTROL (kstate) && key == OAPI_KEY_SPACE) {
-		oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, Ctrl_DlgProc, DLG_CAPTIONCLOSE, this);
+		oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, (DLGPROC)Ctrl_DlgProc, DLG_CAPTIONCLOSE, this);
 		return 1;
 	}
 	return ComponentVessel::clbkConsumeBufferedKey (key, down, kstate);
@@ -1812,12 +1812,12 @@ DLLCLBK void secInit (HWND hEditor, OBJHANDLE hVessel)
 {
 	DeltaGlider *dg = (DeltaGlider*)oapiGetVesselInterface (hVessel);
 
-	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, EdPg1Proc};
+	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, (DLGPROC)EdPg1Proc};
 	SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps1);
-	EditorPageSpec eps2 = {"Passengers", g_Param.hDLL, IDD_EDITOR_PG2, EdPg2Proc};
+	EditorPageSpec eps2 = {"Passengers", g_Param.hDLL, IDD_EDITOR_PG2, (DLGPROC)EdPg2Proc};
 	SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps2);
 	if (dg->bDamageEnabled) {
-		EditorPageSpec eps3 = {"Damage", g_Param.hDLL, IDD_EDITOR_PG3, EdPg3Proc};
+		EditorPageSpec eps3 = {"Damage", g_Param.hDLL, IDD_EDITOR_PG3, (DLGPROC)EdPg3Proc};
 		SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps3);
 	}
 }

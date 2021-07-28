@@ -50,7 +50,7 @@ void DlgHelp::RegisterClientClass (HINSTANCE hInstance)
 	// Register help window class
 	WNDCLASS wndClass;
 	wndClass.style         = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = ClientProc;
+	wndClass.lpfnWndProc   = (WNDPROC)ClientProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hInstance;

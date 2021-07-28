@@ -274,7 +274,7 @@ void PayloadBayOp::SaveState (FILEHANDLE scn)
 void PayloadBayOp::OpenDialog ()
 {
 	if (hDlg) return; // dialog already open
-	hDlg = oapiOpenDialogEx (g_Param.hDLL, IDD_PLBAY, PlOp_DlgProc, 0, this);
+	hDlg = oapiOpenDialogEx (g_Param.hDLL, IDD_PLBAY, (DLGPROC)PlOp_DlgProc, 0, this);
 }
 
 // ==============================================================

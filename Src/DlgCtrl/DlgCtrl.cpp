@@ -27,7 +27,7 @@ void oapiRegisterCustomControls (HINSTANCE hInst)
 
 	// Register window class for level indicator
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = MsgProc_Gauge;
+	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_Gauge;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 16;
 	wndClass.hInstance     = hInst;
@@ -39,7 +39,7 @@ void oapiRegisterCustomControls (HINSTANCE hInst)
 	RegisterClass (&wndClass);
 
 	// Register window class for switch
-	wndClass.lpfnWndProc   = MsgProc_Switch;
+	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_Switch;
 	wndClass.cbWndExtra    = 8;
 	wndClass.hbrBackground = g_GDI.hBrush2; //(HBRUSH)GetStockObject (NULL_BRUSH);
 	wndClass.lpszClassName = "OrbiterCtrl_Switch";
@@ -475,7 +475,7 @@ void PropertyList::OnInitDialog (HWND hWnd, int nIDDlgItem)
 	hDlg = hWnd;
 	dlgid = nIDDlgItem;
 	hItem = GetDlgItem (hDlg, dlgid);
-	SetWindowLong (hItem, GWL_USERDATA, (LONG)this);
+	SetWindowLongPtr (hItem, GWLP_USERDATA, (LONG_PTR)this);
 	RECT cr;
 	GetClientRect (hItem, &cr);
 	winw = cr.right;

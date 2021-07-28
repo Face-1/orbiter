@@ -11,7 +11,7 @@ void RegisterPropertyList (HINSTANCE hInst)
 
 	// Register window class for level indicator
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = MsgProc_PropertyList;
+	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_PropertyList;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 16;
 	wndClass.hInstance     = hInst;
@@ -38,19 +38,19 @@ long FAR PASCAL MsgProc_PropertyList (HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 
 	switch (uMsg) {
 	case WM_PAINT:
-		pl = (PropertyList*)GetWindowLong (hWnd, GWL_USERDATA);
+		pl = (PropertyList*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 		pl->OnPaint (hWnd);
 		return 0;
 	case WM_SIZE:
-		pl = (PropertyList*)GetWindowLong (hWnd, GWL_USERDATA);
+		pl = (PropertyList*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 		if (pl) pl->OnSize (LOWORD (lParam), HIWORD (lParam));
 		return 0;
 	case WM_VSCROLL:
-		pl = (PropertyList*)GetWindowLong (hWnd, GWL_USERDATA);
+		pl = (PropertyList*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 		pl->OnVScroll (LOWORD(wParam), HIWORD(wParam));
 		return 0;
 	case WM_LBUTTONDOWN:
-		pl = (PropertyList*)GetWindowLong (hWnd, GWL_USERDATA);
+		pl = (PropertyList*)GetWindowLongPtr (hWnd, GWLP_USERDATA);
 		pl->OnLButtonDown (LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}

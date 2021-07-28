@@ -89,7 +89,7 @@ MainDialog::~MainDialog ()
 HWND MainDialog::Create (bool startvideotab)
 {
 	if (!hDlg) {
-		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, AppDlgProc);
+		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, (DLGPROC)AppDlgProc);
 		AddTab (new ScenarioTab (this)); TRACENEW
 		AddTab (new ParameterTab (this)); TRACENEW
 		AddTab (new VisualTab (this)); TRACENEW
@@ -174,7 +174,7 @@ void MainDialog::InitTabControl (HWND hWnd)
 		Tab[i]->Create();
 		Tab[i]->GetConfig (pCfg);
 	}
-	hWait = CreateDialog (hInst, MAKEINTRESOURCE(IDD_PAGE_WAIT2), hWnd, WaitPageProc);
+	hWait = CreateDialog (hInst, MAKEINTRESOURCE(IDD_PAGE_WAIT2), hWnd, (DLGPROC)WaitPageProc);
 }
 
 //-----------------------------------------------------------------------------

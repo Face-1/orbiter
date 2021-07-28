@@ -99,7 +99,7 @@ DLLCLBK void opcPreStep (double simt, double simdt, double mjd)
 
 void OpenDlgClbk (void *context)
 {
-	g_hDlg = oapiOpenDialog (g_hInst, IDD_DBGDIALOG, MsgProc);
+	g_hDlg = oapiOpenDialog (g_hInst, IDD_DBGDIALOG, (DLGPROC)MsgProc);
 }
 
 

@@ -61,7 +61,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	// register the window class for the data graph
 	WNDCLASS wndClass;
 	wndClass.style       = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc = Graph_WndProc;
+	wndClass.lpfnWndProc = (WNDPROC)Graph_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hDLL;
@@ -113,7 +113,7 @@ DLLCLBK void opcPreStep (double simt, double simdt, double mjd)
 
 void OpenDlgClbk (void *context)
 {
-	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FLIGHTDATA, MsgProc);
+	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FLIGHTDATA, (DLGPROC)MsgProc);
 	if (hDlg) g_hDlg = hDlg; // otherwise open already
 }
 

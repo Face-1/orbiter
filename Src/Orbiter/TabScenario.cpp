@@ -617,7 +617,7 @@ void ScenarioTab::SaveCurScenario ()
 	extern TCHAR* CurrentScenario;
 	ifstream ifs (pLp->App()->ScnPath (CurrentScenario), ios::in);
 	if (ifs) {
-		DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_SAVESCN), pLp->GetWindow(), SaveProc, (LPARAM)this);
+		DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_SAVESCN), pLp->GetWindow(), (DLGPROC)SaveProc, (LPARAM)this);
 	} else {
 		MessageBox (pLp->GetWindow(), "No current simulation state available", "Save Error", MB_OK|MB_ICONEXCLAMATION);
 	}
