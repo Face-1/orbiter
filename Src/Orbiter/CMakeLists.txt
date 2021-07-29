@@ -154,22 +154,24 @@ set(orbiter_includes
 	${CMAKE_SOURCE_DIR}/OVP
 	${CMAKE_CURRENT_BINARY_DIR}
 	${ZLIB_INCLUDE_DIR}
-	${DX7SDK_INCLUDE_DIR}
 )
+#${DX7SDK_INCLUDE_DIR}
 
 set(orbiter_libs
 	Winmm.dll
 	comctl32.lib
 	UxTheme.lib
-	${DX7SDK_LIB_DIR}/dxguid.lib
-	${DX7SDK_LIB_DIR}/d3dim.lib
-	${DX7SDK_LIB_DIR}/ddraw.lib
-	${DX7SDK_LIB_DIR}/dinput.lib
+	dinput8.lib
+	dxguid.lib
 	${HTML_HELP_LIBRARY}
 	${ZLIB_LIBRARIES}
 	$<TARGET_FILE:Orbitersdk>
 	$<TARGET_FILE:DlgCtrl>
 )
+#	${DX7SDK_LIB_DIR}/dxguid.lib
+	#${DX7SDK_LIB_DIR}/d3dim.lib
+	#${DX7SDK_LIB_DIR}/ddraw.lib
+	#${DX7SDK_LIB_DIR}/dinput.lib
 
 set(orbiter_depends
 	scramble

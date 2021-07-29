@@ -41,24 +41,24 @@ HRESULT CDIFramework7::Create (HINSTANCE hInst)
 	HRESULT hr;
 
 	// Create the main DirectInput object
-	//if (FAILED (hr = DirectInputCreateEx (hInst, DIRECTINPUT_VERSION,
-	//	IID_IDirectInput7, (LPVOID*)&m_pDI, NULL))) {
-	//	LOGOUT("ERROR: DI: DirectInputCreate failed");
-	//	LOGOUT_DIERR(hr);
-	//	return hr;
-	//}
+	if (FAILED (hr = DirectInput8Create (hInst, DIRECTINPUT_VERSION,
+		IID_IDirectInput8, (LPVOID*)&m_pDI, NULL))) {
+		LOGOUT("ERROR: DI: DirectInputCreate failed");
+		LOGOUT_DIERR(hr);
+		return hr;
+	}
 
-	//// Check to see whether a joystick is present. If one is, the enumeration
-	//// callback will save the joystick's GUID, so we can create it later
-	//ZeroMemory (&m_guidJoystick, sizeof (GUID));
-	//m_pDI->EnumDevices (DIDEVTYPE_JOYSTICK, EnumJoysticksCallback,
-	//	(LPVOID)&jList, DIEDFL_ATTACHEDONLY);
+	// Check to see whether a joystick is present. If one is, the enumeration
+	// callback will save the joystick's GUID, so we can create it later
+	ZeroMemory (&m_guidJoystick, sizeof (GUID));
+	m_pDI->EnumDevices (DI8DEVTYPE_JOYSTICK, EnumJoysticksCallback,
+		(LPVOID)&jList, DIEDFL_ATTACHEDONLY);
 
-	//// pick first joystick by default
-	//if (jList.nJoy)
-	//	memcpy (&m_guidJoystick, &jList.descJoy[0].guidInstance, sizeof (GUID));
+	// pick first joystick by default
+	if (jList.nJoy)
+		memcpy (&m_guidJoystick, &jList.descJoy[0].guidInstance, sizeof (GUID));
 
-	//LOGOUT("Found %d joystick(s)", jList.nJoy);
+	LOGOUT("Found %d joystick(s)", jList.nJoy);
 	return S_OK;
 }
 
@@ -105,37 +105,36 @@ VOID CDIFramework7::GetJoysticks (DIDEVICEINSTANCE **dev, DWORD *pdwCount)
 // Name: CreateDevice()
 // Desc: Creates a DirectInput device
 //-----------------------------------------------------------------------------
-HRESULT CDIFramework7::CreateDevice (HWND hWnd, LPDIRECTINPUT7 pDI,
-	LPDIRECTINPUTDEVICE7 pDIDevice, GUID guidDevice, const DIDATAFORMAT *pdidDataFormat,
+HRESULT CDIFramework7::CreateDevice (HWND hWnd, LPDIRECTINPUT8 pDI,
+	LPDIRECTINPUTDEVICE8 pDIDevice, GUID guidDevice, const DIDATAFORMAT *pdidDataFormat,
 	DWORD dwFlags)
 {
 	// Obtain an interface to the input device
-	//if (FAILED (pDI->CreateDeviceEx (guidDevice, IID_IDirectInputDevice2,
-	//	(VOID**)&pDIDevice, NULL))) {
-	//	LOGOUT("ERROR: DI: CreateDeviceEx failed");
-	//	return E_FAIL;
-	//}
+	if (FAILED (pDI->CreateDevice (guidDevice, &pDIDevice, NULL))) {
+		LOGOUT("ERROR: DI: CreateDeviceEx failed");
+		return E_FAIL;
+	}
 
-	//// Set the device data format. A data format specifies which controls on a
-	//// device you are interested in and indicates how they should be reported.
-	//if (FAILED (pDIDevice->SetDataFormat (pdidDataFormat))) {
-	//	LOGOUT("ERROR: DI: SetDataFormat failed");
-	//	return E_FAIL;
-	//}
+	// Set the device data format. A data format specifies which controls on a
+	// device you are interested in and indicates how they should be reported.
+	if (FAILED (pDIDevice->SetDataFormat (pdidDataFormat))) {
+		LOGOUT("ERROR: DI: SetDataFormat failed");
+		return E_FAIL;
+	}
 
-	//// Set the cooperative level to let DirectInput know how this device should
-	//// interact with the system and with other DirectInput applications
-	//if (FAILED (pDIDevice->SetCooperativeLevel (hWnd, dwFlags))) {
-	//	LOGOUT("ERROR: DI: SetCooperativeLevel failed");
-	//	return E_FAIL;
-	//}
+	// Set the cooperative level to let DirectInput know how this device should
+	// interact with the system and with other DirectInput applications
+	if (FAILED (pDIDevice->SetCooperativeLevel (hWnd, dwFlags))) {
+		LOGOUT("ERROR: DI: SetCooperativeLevel failed");
+		return E_FAIL;
+	}
 
-	//if (guidDevice == GUID_SysKeyboard)
-	//	m_pdidKbdDevice = pDIDevice;
-	//else if (guidDevice == GUID_SysMouse)
-	//	m_pdidMouseDevice = pDIDevice;
-	//else
-	//	m_pdidJoyDevice = pDIDevice;
+	if (guidDevice == GUID_SysKeyboard)
+		m_pdidKbdDevice = pDIDevice;
+	else if (guidDevice == GUID_SysMouse)
+		m_pdidMouseDevice = pDIDevice;
+	else
+		m_pdidJoyDevice = pDIDevice;
 
 	return S_OK;
 }
@@ -147,8 +146,8 @@ HRESULT CDIFramework7::CreateDevice (HWND hWnd, LPDIRECTINPUT7 pDI,
 HRESULT CDIFramework7::CreateKbdDevice (HWND hWnd)
 {
 	HRESULT hr;
-	/*if (FAILED (hr = CreateDevice (hWnd, m_pDI, m_pdidKbdDevice, GUID_SysKeyboard,
-		&c_dfDIKeyboard, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))) return hr;*/
+	if (FAILED (hr = CreateDevice (hWnd, m_pDI, m_pdidKbdDevice, GUID_SysKeyboard,
+		&c_dfDIKeyboard, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))) return hr;
 
 	// set buffer size for storage of buffered key events
 	DIPROPDWORD dipdw;
@@ -157,7 +156,7 @@ HRESULT CDIFramework7::CreateKbdDevice (HWND hWnd)
 	dipdw.diph.dwObj = 0;
 	dipdw.diph.dwHow = DIPH_DEVICE;
 	dipdw.dwData = 10;
-	return m_pdidKbdDevice->SetProperty (DIPROP_BUFFERSIZE, &dipdw.diph);
+	return m_pdidKbdDevice->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 }
 
 //-----------------------------------------------------------------------------
@@ -167,8 +166,8 @@ HRESULT CDIFramework7::CreateKbdDevice (HWND hWnd)
 HRESULT CDIFramework7::CreateMouseDevice (HWND hWnd)
 {
 	HRESULT hr;
-	/*if (FAILED (hr = CreateDevice (hWnd, m_pDI, m_pdidMouseDevice, GUID_SysMouse,
-		&c_dfDIMouse, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))) return hr;*/
+	if (FAILED (hr = CreateDevice (hWnd, m_pDI, m_pdidMouseDevice, GUID_SysMouse,
+		&c_dfDIMouse, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))) return hr;
 
 	// switch mouse to absolute mode
 	DIPROPDWORD diprw;
@@ -177,7 +176,7 @@ HRESULT CDIFramework7::CreateMouseDevice (HWND hWnd)
 	diprw.diph.dwObj        = 0;
 	diprw.diph.dwHow        = DIPH_DEVICE;
 	diprw.dwData            = DIPROPAXISMODE_ABS;
-	return m_pdidMouseDevice->SetProperty (DIPROP_AXISMODE, &diprw.diph);
+	return m_pdidMouseDevice->SetProperty(DIPROP_AXISMODE, &diprw.diph);
 }
 
 //-----------------------------------------------------------------------------
@@ -186,10 +185,10 @@ HRESULT CDIFramework7::CreateMouseDevice (HWND hWnd)
 //-----------------------------------------------------------------------------
 HRESULT CDIFramework7::CreateJoyDevice (HWND hWnd, DWORD idx)
 {
-	/*if (idx >= jList.nJoy) return E_FAIL;
+	if (idx >= jList.nJoy) return E_FAIL;
 	return CreateDevice (hWnd, m_pDI, m_pdidJoyDevice, jList.descJoy[idx].guidInstance,
-		&c_dfDIJoystick2, DISCL_EXCLUSIVE | DISCL_FOREGROUND);*/
-	return S_OK;
+		&c_dfDIJoystick2, DISCL_EXCLUSIVE | DISCL_FOREGROUND);
+	
 }
 
 //-----------------------------------------------------------------------------
