@@ -56,10 +56,6 @@ set(GDICLIENT_LIB $<TARGET_LINKER_FILE:GDIClient>)
 
 set(EXTERN_DIR "${CMAKE_SOURCE_DIR}/Extern")
 
-set(DX7SDK_PATH "${EXTERN_DIR}/mssdk_dx7")
-set(DX7SDK_INCLUDE_DIR "${DX7SDK_PATH}/include")
-set(DX7SDK_LIB_DIR "${DX7SDK_PATH}/lib")
-
 set(ZLIB_PATH "${EXTERN_DIR}/Zlib")
 set(ZLIB_INCLUDE_DIR "${ZLIB_PATH}/include")
 set(ZLIB_LIB_DIR "${ZLIB_PATH}/lib")

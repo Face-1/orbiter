@@ -163,15 +163,12 @@ set(orbiter_libs
 	UxTheme.lib
 	dinput8.lib
 	dxguid.lib
+	ddraw.lib
 	${HTML_HELP_LIBRARY}
 	${ZLIB_LIBRARIES}
 	$<TARGET_FILE:Orbitersdk>
 	$<TARGET_FILE:DlgCtrl>
 )
-#	${DX7SDK_LIB_DIR}/dxguid.lib
-	#${DX7SDK_LIB_DIR}/d3dim.lib
-	#${DX7SDK_LIB_DIR}/ddraw.lib
-	#${DX7SDK_LIB_DIR}/dinput.lib
 
 set(orbiter_depends
 	scramble
