@@ -155,7 +155,7 @@ HWND LuaConsole::Open ()
 {
 	// open the terminal dialog
 	if (oapiFindDialog (hModule, IDD_CONSOLE)) return NULL; // console open already
-	hWnd = oapiOpenDialogEx (hModule, IDD_CONSOLE, (DLGPROC)DlgProc, 0, this);
+	hWnd = oapiOpenDialogEx (hModule, IDD_CONSOLE, DlgProc, 0, this);
 	hTerm = GetDlgItem (hWnd, IDC_TERM);
 
 	// get some text parameters
@@ -516,7 +516,7 @@ LRESULT WINAPI LuaConsole::TermProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LP
 
 // ==============================================================
 
-BOOL CALLBACK LuaConsole::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK LuaConsole::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	LuaConsole *pConsole = (LuaConsole*)oapiGetDialogContext (hWnd);
 

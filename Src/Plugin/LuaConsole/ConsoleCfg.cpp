@@ -29,7 +29,7 @@ char *ConsoleConfig::Description ()
 bool ConsoleConfig::clbkOpen (HWND hLaunchpad)
 {
 	cc = this; // keep a global pointer to be used by the message handlers (ugly)
-	return OpenDialog (hModule, hLaunchpad, IDD_CONFIG, (DLGPROC)DlgProc);
+	return OpenDialog (hModule, hLaunchpad, IDD_CONFIG, DlgProc);
 }
 
 int ConsoleConfig::clbkWriteConfig ()
@@ -79,7 +79,7 @@ void ConsoleConfig::Apply (HWND hDlg)
 	if (sscanf (cbuf, "%d", &d) == 1) fontsize = d;
 }
 
-BOOL CALLBACK ConsoleConfig::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ConsoleConfig::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

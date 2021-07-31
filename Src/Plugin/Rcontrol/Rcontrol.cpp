@@ -48,7 +48,7 @@ static struct {
 } g_Param;
 
 void OpenDlgClbk (void *context);
-BOOL CALLBACK DlgProc (HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK DlgProc (HWND, UINT, WPARAM, LPARAM);
 void CreateVesselList (HWND);
 
 // ==============================================================
@@ -138,7 +138,7 @@ DLLCLBK void ExitModule (HINSTANCE hDLL)
 // Open the dialog box
 void OpenDlgClbk (void *context)
 {
-	HWND hDlg = oapiOpenDialog (g_Param.hDLL, IDD_INTERFACE, (DLGPROC)DlgProc);
+	HWND hDlg = oapiOpenDialog (g_Param.hDLL, IDD_INTERFACE, DlgProc);
 	if (hDlg) {
 		g_Param.hDlg = hDlg;
 
@@ -173,7 +173,7 @@ void CreateVesselList (HWND hDlg)
 }
 
 // Dialog message callback function
-BOOL CALLBACK DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	char cbuf[128];
 	int idx;

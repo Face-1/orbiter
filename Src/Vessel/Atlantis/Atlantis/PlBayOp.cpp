@@ -11,7 +11,7 @@ extern GDIParams g_Param;
 extern HELPCONTEXT g_hc;
 extern char *ActionString[5];
 
-BOOL CALLBACK PlOp_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK PlOp_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static Atlantis *sts_dlg;
 
 // ==============================================================
@@ -274,7 +274,7 @@ void PayloadBayOp::SaveState (FILEHANDLE scn)
 void PayloadBayOp::OpenDialog ()
 {
 	if (hDlg) return; // dialog already open
-	hDlg = oapiOpenDialogEx (g_Param.hDLL, IDD_PLBAY, (DLGPROC)PlOp_DlgProc, 0, this);
+	hDlg = oapiOpenDialogEx (g_Param.hDLL, IDD_PLBAY, PlOp_DlgProc, 0, this);
 }
 
 // ==============================================================
@@ -562,7 +562,7 @@ void PayloadBayOp::UpdateDialog (HWND hWnd)
 
 // ==============================================================
 
-BOOL PayloadBayOp::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT PayloadBayOp::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool action = false;
 
@@ -738,7 +738,7 @@ BOOL PayloadBayOp::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // ==============================================================
 // Dialog callback hook
 
-BOOL CALLBACK PlOp_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK PlOp_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return sts_dlg->plop->DlgProc (hWnd, uMsg, wParam, lParam);
 }

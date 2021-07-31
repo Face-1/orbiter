@@ -37,7 +37,7 @@ bool bShowGraph[2] = {true, false}; // show graphs?
 // Local prototypes
 
 void OpenDlgClbk (void *context);
-BOOL CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
 LRESULT FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // ==============================================================
@@ -105,7 +105,7 @@ DLLCLBK void opcPreStep (double simt, double simdt, double mjd)
 
 void OpenDlgClbk (void *context)
 {
-	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FRAMERATE, (DLGPROC)MsgProc);
+	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FRAMERATE, MsgProc);
 	if (hDlg) g_hDlg = hDlg; // otherwise open already
 }
 
@@ -134,7 +134,7 @@ void ArrangeGraphs (HWND hDlg)
 // FlightData dialog message handler
 // =================================================================================
 
-BOOL CALLBACK MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	int i;
 

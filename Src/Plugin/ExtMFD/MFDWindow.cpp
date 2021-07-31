@@ -20,7 +20,7 @@
 // ==============================================================
 // prototype definitions
 
-BOOL CALLBACK DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // ==============================================================
 // class MFDWindow
@@ -30,7 +30,7 @@ MFDWindow::MFDWindow (HINSTANCE _hInst, const MFDSPEC &spec): ExternMFD (spec), 
 	hBtnFnt = 0;
 	fnth = 0;
 	vstick = false;
-	oapiOpenDialogEx (hInst, IDD_MFD, (DLGPROC)DlgProc,
+	oapiOpenDialogEx (hInst, IDD_MFD, DlgProc,
 		DLG_ALLOWMULTI, this);
 }
 
@@ -207,7 +207,7 @@ void MFDWindow::StickToVessel (bool stick)
 // ==============================================================
 // Windows message handler for the dialog box
 
-BOOL CALLBACK DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

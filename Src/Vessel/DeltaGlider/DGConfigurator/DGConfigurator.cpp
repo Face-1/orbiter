@@ -29,7 +29,7 @@ public:
 	void EnableHires (bool enable);
 	void InitDialog (HWND hWnd);
 	void Apply (HWND hWnd);
-	static BOOL CALLBACK DlgProc (HWND, UINT, WPARAM, LPARAM);
+	static LRESULT CALLBACK DlgProc (HWND, UINT, WPARAM, LPARAM);
 };
 
 char *DGConfig::Description()
@@ -41,7 +41,7 @@ char *DGConfig::Description()
 bool DGConfig::clbkOpen (HWND hLaunchpad)
 {
 	// respond to user double-clicking the item in the list
-	return OpenDialog (gParams.hInst, hLaunchpad, IDD_DGCONFIG, (DLGPROC)DlgProc);
+	return OpenDialog (gParams.hInst, hLaunchpad, IDD_DGCONFIG, DlgProc);
 }
 
 bool DGConfig::HiresEnabled () const
@@ -76,7 +76,7 @@ void DGConfig::Apply (HWND hWnd)
 	EnableHires (enable);
 }
 
-BOOL CALLBACK DGConfig::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DGConfig::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

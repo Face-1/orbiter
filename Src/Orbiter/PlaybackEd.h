@@ -44,7 +44,7 @@ public:
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
 	BOOL MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	char *tag;
@@ -65,7 +65,7 @@ public:
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
 	BOOL MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	double tacc;      // time acceleration factor
@@ -87,7 +87,7 @@ public:
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
 	BOOL MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	void ScanPresets (HWND hTab);
@@ -108,7 +108,7 @@ public:
 	void Write (std::ofstream &ofs);
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	char *note;
@@ -125,7 +125,7 @@ public:
 	void Write (std::ofstream &ofs);
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	double x0, y0, x1, y1;
@@ -143,7 +143,7 @@ public:
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
 	BOOL MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	double r, g, b;
@@ -161,7 +161,7 @@ public:
 	void EditEvent (PlaybackEditor *editor);
 	void CommitEdit ();
 	BOOL MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static BOOL CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	double size;
@@ -174,7 +174,7 @@ class PlaybackEditor {
 public:
 	PlaybackEditor (Orbiter *ob, const char *ScnName);
 	~PlaybackEditor ();
-	BOOL DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	LRESULT DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	HWND OpenEditTab (PlaybackEvent *event, int resid, DLGPROC tabproc);
 	HWND EditTab () const { return hEdit; }
 	void SortEvent (PlaybackEvent *e);

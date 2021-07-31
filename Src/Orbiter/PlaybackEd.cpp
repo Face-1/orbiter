@@ -14,7 +14,7 @@ extern Camera *g_camera;
 extern TimeData td;
 extern char DBG_MSG[256];
 
-BOOL CALLBACK RecPlayAnn_DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK RecPlayAnn_DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // =========================================================
 
@@ -186,7 +186,7 @@ void GenericEvent::Write (ofstream &ofs)
 
 void GenericEvent::EditEvent (PlaybackEditor *editor)
 {
-	editor->OpenEditTab (this, IDD_PBEDITOR_GENERIC, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_GENERIC, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	if (tag)
 		SetWindowText (GetDlgItem (editor->EditTab(), IDC_EDIT3), tag);
@@ -210,7 +210,7 @@ BOOL GenericEvent::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return PlaybackEvent::MsgProc (hDlg, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK GenericEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GenericEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	GenericEvent *event = (uMsg == WM_INITDIALOG ?
 		(GenericEvent*)lParam : (GenericEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -262,7 +262,7 @@ void TaccEvent::Write (ofstream &ofs)
 
 void TaccEvent::EditEvent (PlaybackEditor *editor)
 {
-	editor->OpenEditTab (this, IDD_PBEDITOR_TACC, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_TACC, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	char cbuf[128];
 	sprintf (cbuf, "%0.2f", tacc);
@@ -314,7 +314,7 @@ BOOL TaccEvent::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return PlaybackEvent::MsgProc (hDlg, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK TaccEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TaccEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TaccEvent *event = (uMsg == WM_INITDIALOG ?
 		(TaccEvent*)lParam : (TaccEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -370,7 +370,7 @@ void CameraEvent::Write (ofstream &ofs)
 
 void CameraEvent::EditEvent (PlaybackEditor *editor)
 {
-	editor->OpenEditTab (this, IDD_PBEDITOR_CAMPRESET, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_CAMPRESET, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	if (preset != (DWORD)-1)
 		SendDlgItemMessage (editor->EditTab(), IDC_COMBO1, CB_SETCURSEL, preset, 0);
@@ -438,7 +438,7 @@ BOOL CameraEvent::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 
-BOOL CALLBACK CameraEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK CameraEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	CameraEvent *event = (uMsg == WM_INITDIALOG ?
 		(CameraEvent*)lParam : (CameraEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -487,7 +487,7 @@ void NoteEvent::Write (ofstream &ofs)
 
 void NoteEvent::EditEvent (PlaybackEditor *editor)
 {
-	editor->OpenEditTab (this, IDD_PBEDITOR_NOTE, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_NOTE, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	SetWindowText (GetDlgItem (editor->EditTab(), IDC_EDIT1), note);
 }
@@ -501,7 +501,7 @@ void NoteEvent::CommitEdit ()
 	SetNote (cbuf);
 }
 
-BOOL CALLBACK NoteEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK NoteEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	NoteEvent *event = (uMsg == WM_INITDIALOG ?
 		(NoteEvent*)lParam : (NoteEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -543,7 +543,7 @@ void NoteposEvent::Write (ofstream &ofs)
 void NoteposEvent::EditEvent (PlaybackEditor *editor)
 {
 	char cbuf[256];
-	editor->OpenEditTab (this, IDD_PBEDITOR_NOTEPOS, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_NOTEPOS, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	HWND hEdit = editor->EditTab();
 	sprintf (cbuf, "%0.2f", x0); SetWindowText (GetDlgItem (hEdit, IDC_EDIT1), cbuf);
@@ -565,7 +565,7 @@ void NoteposEvent::CommitEdit ()
 	SetPos (_x0, _y0, _x1, _y1);
 }
 
-BOOL CALLBACK NoteposEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK NoteposEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	NoteposEvent *event = (uMsg == WM_INITDIALOG ?
 		(NoteposEvent*)lParam : (NoteposEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -606,7 +606,7 @@ void NotecolEvent::Write (ofstream &ofs)
 void NotecolEvent::EditEvent (PlaybackEditor *editor)
 {
 	char cbuf[256];
-	editor->OpenEditTab (this, IDD_PBEDITOR_NOTECOL, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_NOTECOL, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	HWND hEdit = editor->EditTab();
 	sprintf (cbuf, "%g", r); SetWindowText (GetDlgItem (hEdit, IDC_EDIT1), cbuf);
@@ -655,7 +655,7 @@ BOOL NotecolEvent::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return PlaybackEvent::MsgProc (hDlg, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK NotecolEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK NotecolEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	NotecolEvent *event = (uMsg == WM_INITDIALOG ?
 		(NotecolEvent*)lParam : (NotecolEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -694,7 +694,7 @@ void NotesizeEvent::Write (ofstream &ofs)
 void NotesizeEvent::EditEvent (PlaybackEditor *editor)
 {
 	char cbuf[256];
-	editor->OpenEditTab (this, IDD_PBEDITOR_NOTESIZE, (DLGPROC)EditProc);
+	editor->OpenEditTab (this, IDD_PBEDITOR_NOTESIZE, EditProc);
 	PlaybackEvent::EditEvent (editor);
 	HWND hEdit = editor->EditTab();
 	sprintf (cbuf, "%g", size); SetWindowText (GetDlgItem (hEdit, IDC_EDIT1), cbuf);
@@ -731,7 +731,7 @@ BOOL NotesizeEvent::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return PlaybackEvent::MsgProc (hDlg, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK NotesizeEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK NotesizeEvent::EditProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	NotesizeEvent *event = (uMsg == WM_INITDIALOG ?
 		(NotesizeEvent*)lParam : (NotesizeEvent*)GetWindowLongPtr (hDlg, GWLP_USERDATA));
@@ -777,7 +777,7 @@ PlaybackEditor::~PlaybackEditor ()
 
 HWND PlaybackEditor::OpenDialog ()
 {
-	return orbiter->OpenDialogEx (IDD_RECPLAY_ANNOTATE, (DLGPROC)RecPlayAnn_DlgProc,  DLG_CAPTIONCLOSE | DLG_CAPTIONHELP, this);
+	return orbiter->OpenDialogEx (IDD_RECPLAY_ANNOTATE, RecPlayAnn_DlgProc,  DLG_CAPTIONCLOSE | DLG_CAPTIONHELP, this);
 }
 
 void PlaybackEditor::CloseDialog ()
@@ -815,7 +815,7 @@ void PlaybackEditor::RegisterEdit (HWND hEdit)
 	InsertTMarker();
 }
 
-BOOL PlaybackEditor::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT PlaybackEditor::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG: {
@@ -1120,7 +1120,7 @@ void PlaybackEditor::SortEvent (PlaybackEvent *e)
 
 // ======================================================================
 
-BOOL CALLBACK RecPlayAnn_DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK RecPlayAnn_DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	PlaybackEditor *pe = g_pOrbiter->FReditor;
 	if (uMsg == WM_INITDIALOG) {

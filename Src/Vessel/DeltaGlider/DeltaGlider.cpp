@@ -86,10 +86,10 @@ static TOUCHDOWNVTX tdvtx_gearup[ntdvtx_gearup] = {
 // ==============================================================
 // Local prototypes
 
-BOOL CALLBACK Ctrl_DlgProc (HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK Ctrl_DlgProc (HWND, UINT, WPARAM, LPARAM);
 void UpdateCtrlDialog (DeltaGlider *dg, HWND hWnd = 0);
 
-//BOOL CALLBACK Damage_DlgProc (HWND, UINT, WPARAM, LPARAM);
+//LRESULT CALLBACK Damage_DlgProc (HWND, UINT, WPARAM, LPARAM);
 //void UpdateDamageDialog (DeltaGlider *dg, HWND hWnd = 0);
 
 // ==============================================================
@@ -1551,7 +1551,7 @@ int DeltaGlider::clbkConsumeBufferedKey (DWORD key, bool down, char *kstate)
 	if (Playback()) return 0; // don't allow manual user input during a playback
 
 	if (!KEYMOD_ALT (kstate) && !KEYMOD_SHIFT (kstate) && KEYMOD_CONTROL (kstate) && key == OAPI_KEY_SPACE) {
-		oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, (DLGPROC)Ctrl_DlgProc, DLG_CAPTIONCLOSE, this);
+		oapiOpenDialogEx (g_Param.hDLL, IDD_CTRL, Ctrl_DlgProc, DLG_CAPTIONCLOSE, this);
 		return 1;
 	}
 	return ComponentVessel::clbkConsumeBufferedKey (key, down, kstate);
@@ -1655,7 +1655,7 @@ void UpdateDamage (HWND hTab, DeltaGlider *dg)
 // --------------------------------------------------------------
 // Message procedure for editor page 1 (animation settings)
 // --------------------------------------------------------------
-BOOL CALLBACK EdPg1Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK EdPg1Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_COMMAND:
@@ -1721,7 +1721,7 @@ BOOL CALLBACK EdPg1Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // --------------------------------------------------------------
 // Message procedure for editor page 2 (passengers)
 // --------------------------------------------------------------
-BOOL CALLBACK EdPg2Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK EdPg2Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	DeltaGlider *dg;
 	int i;
@@ -1759,7 +1759,7 @@ BOOL CALLBACK EdPg2Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // --------------------------------------------------------------
 // Message procedure for editor page 3 (damage)
 // --------------------------------------------------------------
-BOOL CALLBACK EdPg3Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK EdPg3Proc (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	DeltaGlider *dg;
 
@@ -1812,12 +1812,12 @@ DLLCLBK void secInit (HWND hEditor, OBJHANDLE hVessel)
 {
 	DeltaGlider *dg = (DeltaGlider*)oapiGetVesselInterface (hVessel);
 
-	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, (DLGPROC)EdPg1Proc};
+	EditorPageSpec eps1 = {"Animations", g_Param.hDLL, IDD_EDITOR_PG1, EdPg1Proc};
 	SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps1);
-	EditorPageSpec eps2 = {"Passengers", g_Param.hDLL, IDD_EDITOR_PG2, (DLGPROC)EdPg2Proc};
+	EditorPageSpec eps2 = {"Passengers", g_Param.hDLL, IDD_EDITOR_PG2, EdPg2Proc};
 	SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps2);
 	if (dg->bDamageEnabled) {
-		EditorPageSpec eps3 = {"Damage", g_Param.hDLL, IDD_EDITOR_PG3, (DLGPROC)EdPg3Proc};
+		EditorPageSpec eps3 = {"Damage", g_Param.hDLL, IDD_EDITOR_PG3, EdPg3Proc};
 		SendMessage (hEditor, WM_SCNEDITOR, SE_ADDPAGEBUTTON, (LPARAM)&eps3);
 	}
 }
@@ -1826,7 +1826,7 @@ DLLCLBK void secInit (HWND hEditor, OBJHANDLE hVessel)
 // Message callback function for control dialog box
 // ==============================================================
 
-BOOL CALLBACK Ctrl_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Ctrl_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	DeltaGlider *dg = (uMsg == WM_INITDIALOG ? (DeltaGlider*)lParam : (DeltaGlider*)oapiGetDialogContext (hWnd));
 	// pointer to vessel instance was passed as dialog context
@@ -2009,7 +2009,7 @@ void UpdateCtrlDialog (DeltaGlider *dg, HWND hWnd)
 // ==============================================================
 
 #ifdef UNDEF
-BOOL CALLBACK Damage_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Damage_DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	DeltaGlider *dg = (uMsg == WM_INITDIALOG ? (DeltaGlider*)lParam : (DeltaGlider*)oapiGetDialogContext (hWnd));
 	// pointer to vessel instance was passed as dialog context

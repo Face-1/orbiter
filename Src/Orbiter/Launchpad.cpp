@@ -89,7 +89,7 @@ MainDialog::~MainDialog ()
 HWND MainDialog::Create (bool startvideotab)
 {
 	if (!hDlg) {
-		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, (DLGPROC)AppDlgProc);
+		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, AppDlgProc);
 		AddTab (new ScenarioTab (this)); TRACENEW
 		AddTab (new ParameterTab (this)); TRACENEW
 		AddTab (new VisualTab (this)); TRACENEW
@@ -174,7 +174,7 @@ void MainDialog::InitTabControl (HWND hWnd)
 		Tab[i]->Create();
 		Tab[i]->GetConfig (pCfg);
 	}
-	hWait = CreateDialog (hInst, MAKEINTRESOURCE(IDD_PAGE_WAIT2), hWnd, (DLGPROC)WaitPageProc);
+	hWait = CreateDialog (hInst, MAKEINTRESOURCE(IDD_PAGE_WAIT2), hWnd, WaitPageProc);
 }
 
 //-----------------------------------------------------------------------------
@@ -306,7 +306,7 @@ void MainDialog::UpdateConfig ()
 // Name: DlgProc()
 // Desc: Message callback function for main dialog
 //-----------------------------------------------------------------------------
-BOOL MainDialog::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT MainDialog::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	char cbuf[256];
 
@@ -1050,7 +1050,7 @@ bool MainDialog::SelRootScenario (char *scn)
 // Desc: Static msg handler which passes messages from the main dialog
 //       to the application class.
 //-----------------------------------------------------------------------------
-BOOL CALLBACK AppDlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK AppDlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return g_pDlg->DlgProc (hWnd, uMsg, wParam, lParam);
 }
@@ -1059,7 +1059,7 @@ BOOL CALLBACK AppDlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // Name: WaitPageProc()
 // Desc: Dummy function for wait page
 //-----------------------------------------------------------------------------
-BOOL CALLBACK WaitPageProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WaitPageProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return g_pDlg->WaitProc (hWnd, uMsg, wParam, lParam);
 }

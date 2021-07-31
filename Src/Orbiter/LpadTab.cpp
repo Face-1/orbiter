@@ -75,7 +75,7 @@ BOOL LaunchpadTab::Size (int w, int h)
 
 HWND LaunchpadTab::CreateTab (int resid)
 {
-	HWND hT = CreateDialogParam (pLp->GetInstance(), MAKEINTRESOURCE(resid), pLp->GetWindow(), (DLGPROC)TabProcHook, (LPARAM)this);
+	HWND hT = CreateDialogParam (pLp->GetInstance(), MAKEINTRESOURCE(resid), pLp->GetWindow(), TabProcHook, (LPARAM)this);
 	SetWindowLongPtr (hT, DWLP_USER, (LONG_PTR)this);
 
 	POINT p0, p1;
@@ -119,7 +119,7 @@ BOOL LaunchpadTab::TabProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 //-----------------------------------------------------------------------------
 
-BOOL CALLBACK LaunchpadTab::TabProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK LaunchpadTab::TabProcHook (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	LaunchpadTab *lt = (LaunchpadTab*)GetWindowLongPtr (hWnd, DWLP_USER);
 	switch (uMsg) {

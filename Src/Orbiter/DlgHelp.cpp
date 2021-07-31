@@ -30,7 +30,7 @@ static HWND hHelpClient = NULL;
 // ======================================================================
 
 DlgHelp::DlgHelp (HINSTANCE hInstance, HWND hParent, void *context)
-: DialogWin (hInstance, hParent, IDD_HELP, (DLGPROC)DlgProc, 0, context)
+: DialogWin (hInstance, hParent, IDD_HELP, DlgProc, 0, context)
 {
 	hfooter = 0;
 	RegisterClientClass (hInstance);
@@ -198,7 +198,7 @@ BOOL DlgHelp::OnSize (HWND hWnd, WPARAM wParam, int w, int h)
 
 // ======================================================================
 
-BOOL CALLBACK DlgHelp::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DlgHelp::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

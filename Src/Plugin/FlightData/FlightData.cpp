@@ -45,7 +45,7 @@ static char *logfile = "FlightData.log";
 // Local prototypes
 
 void OpenDlgClbk (void *context);
-BOOL CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
 LRESULT FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // ==============================================================
@@ -113,7 +113,7 @@ DLLCLBK void opcPreStep (double simt, double simdt, double mjd)
 
 void OpenDlgClbk (void *context)
 {
-	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FLIGHTDATA, (DLGPROC)MsgProc);
+	HWND hDlg = oapiOpenDialog (g_hInst, IDD_FLIGHTDATA, MsgProc);
 	if (hDlg) g_hDlg = hDlg; // otherwise open already
 }
 
@@ -252,7 +252,7 @@ void WriteLogHeader (bool start)
 // FlightData dialog message handler
 // =================================================================================
 
-BOOL CALLBACK MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG: {

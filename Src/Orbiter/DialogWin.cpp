@@ -32,7 +32,7 @@ DialogWin::DialogWin (HINSTANCE hInstance, HWND hParent, int resourceId,
 	hPrnt   = hParent;
 	hWnd    = NULL;
 	pos     = NULL;
-	dlgproc = (pDlg ? pDlg : (DLGPROC)DlgProc);
+	dlgproc = (pDlg ? pDlg : DlgProc);
 
 	memset (tbtn, 0, 5*sizeof(TitleBtn));
 	//int i = 0;
@@ -109,7 +109,7 @@ void DialogWin::Update ()
 
 // ======================================================================
 
-BOOL CALLBACK DialogWin::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DialogWin::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	BOOL res = MSG_DEFAULT;
 	switch (uMsg) {

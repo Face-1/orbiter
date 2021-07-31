@@ -165,9 +165,9 @@ HELPCONTEXT DefHelpContext = {
 HRESULT ConfirmDevice (DDCAPS*, D3DDEVICEDESC7*);
 
 //LRESULT CALLBACK WndProc3D (HWND, UINT, WPARAM, LPARAM);
-BOOL CALLBACK BkMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK CloseMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK ServerDlgProc (HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK BkMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK CloseMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK ServerDlgProc (HWND, UINT, WPARAM, LPARAM);
 DWORD WINAPI ConsoleInputProc (LPVOID);
 
 VOID    DestroyWorld ();
@@ -451,7 +451,7 @@ HRESULT Orbiter::Create (HINSTANCE hInstance, TCHAR* strCmdLine)
 	SplitterCtrl::RegisterClass (hInstance);
 
 	if (pConfig->CfgDemoPrm.bBkImage) {
-		hBk = CreateDialog (hInstance, MAKEINTRESOURCE(IDD_DEMOBK), NULL, (DLGPROC)BkMsgProc);
+		hBk = CreateDialog (hInstance, MAKEINTRESOURCE(IDD_DEMOBK), NULL, BkMsgProc);
 		ShowWindow (hBk, SW_MAXIMIZE);
 	}
 	
@@ -1267,7 +1267,7 @@ bool Orbiter::ParseConsoleCmd ()
 		ConsoleOut (cbuf);
 	} else if (!_strnicmp (cmd, "gui", 3)) {
 		if (!DestroyServerGuiDlg())
-			hServerWnd = CreateDialog (hInst, MAKEINTRESOURCE(IDD_SERVER), hDlg, (DLGPROC)ServerDlgProc);
+			hServerWnd = CreateDialog (hInst, MAKEINTRESOURCE(IDD_SERVER), hDlg, ServerDlgProc);
 	}
 	return false;
 }
@@ -1775,7 +1775,7 @@ void Orbiter::ToggleRecorder (bool force, bool append)
 		} else sname = GetDefRecordName();
 		if (!append && !FRecorder_PrepareDir (sname, force)) {
 			bStartRecorder = false;
-			OpenDialogEx (IDD_MSG_FRECORDER, (DLGPROC)FRecorderMsg_DlgProc, DLG_CAPTIONCLOSE);
+			OpenDialogEx (IDD_MSG_FRECORDER, FRecorderMsg_DlgProc, DLG_CAPTIONCLOSE);
 			return;
 		}
 	} else sname = 0;
@@ -2588,7 +2588,7 @@ void Orbiter::KbdInputBuffered_System (char *kstate, DIDEVICEOBJECTDATA *dod, DW
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgCustomCmd))         pDlgMgr->EnsureEntry<DlgFunction> ();
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgInfo))              pDlgMgr->EnsureEntry<DlgInfo> ();
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgMap))               pDlgMgr->EnsureEntry<DlgMap> ();
-		//else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgNavaid))            OpenDialogEx (IDD_NAVAID, (DLGPROC)Navaid_DlgProc, DLG_CAPTIONCLOSE);
+		//else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgNavaid))            OpenDialogEx (IDD_NAVAID, Navaid_DlgProc, DLG_CAPTIONCLOSE);
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgRecorder))          pDlgMgr->EnsureEntry<DlgRecorder> ();
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_ToggleCamInternal))    SetView (g_focusobj, !g_camera->IsExternal());
 		else if (keymap.IsLogicalKey (key, kstate, OAPI_LKEY_DlgVisHelper))         pDlgMgr->EnsureEntry<DlgVishelper> ();
@@ -2668,7 +2668,7 @@ void Orbiter::KbdInputBuffered_OnRunning (char *kstate, DIDEVICEOBJECTDATA *dod,
 
 			//switch (key) {
 			//case DIK_F3:       // switch vessel
-			//	OpenDialogEx (IDD_JUMPVESSEL, (DLGPROC)SelVessel_DlgProc, DLG_CAPTIONCLOSE | DLG_CAPTIONHELP);
+			//	OpenDialogEx (IDD_JUMPVESSEL, SelVessel_DlgProc, DLG_CAPTIONCLOSE | DLG_CAPTIONHELP);
 			//	break;
 			//}
 		}
@@ -3282,7 +3282,7 @@ bool Callback_Main (Select *sel, int item, char*, void *data)
 	return true;
 }
 
-BOOL CALLBACK BkMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK BkMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_SIZE: {
@@ -3294,12 +3294,12 @@ BOOL CALLBACK BkMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-BOOL CALLBACK CloseMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK CloseMsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return 0;
 }
 
-BOOL CALLBACK ServerDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ServerDlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

@@ -617,7 +617,7 @@ void ScenarioTab::SaveCurScenario ()
 	extern TCHAR* CurrentScenario;
 	ifstream ifs (pLp->App()->ScnPath (CurrentScenario), ios::in);
 	if (ifs) {
-		DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_SAVESCN), pLp->GetWindow(), (DLGPROC)SaveProc, (LPARAM)this);
+		DialogBoxParam (pLp->GetInstance(), MAKEINTRESOURCE(IDD_SAVESCN), pLp->GetWindow(), SaveProc, (LPARAM)this);
 	} else {
 		MessageBox (pLp->GetWindow(), "No current simulation state available", "Save Error", MB_OK|MB_ICONEXCLAMATION);
 	}
@@ -664,7 +664,7 @@ int ScenarioTab::SaveCurScenarioAs (const char *name, char *desc, bool replace)
 // Name: SaveProc()
 // Desc: Scenario save dialog message proc
 //-----------------------------------------------------------------------------
-BOOL CALLBACK ScenarioTab::SaveProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ScenarioTab::SaveProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static ScenarioTab *pTab;
 	int res, name_len, desc_len;

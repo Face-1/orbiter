@@ -19,7 +19,7 @@ bool TrackIRconfig::clbkOpen (HWND hLaunchpad)
 {
 	// respond to user double-clicking the item in the list
 	tirc = this; // keep a global pointer to be used by the message handlers
-	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, (DLGPROC)DlgProc);
+	return OpenDialog (gParams.hInst, hLaunchpad, IDD_CONFIG, DlgProc);
 }
 
 int TrackIRconfig::clbkWriteConfig ()
@@ -53,19 +53,19 @@ void TrackIRconfig::InitDialog (HWND hDlg)
 
 	strcpy (cbuf, "Mode");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 0, (LPARAM)&tie);
-	hTab[0] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_MODE), hDlg, (DLGPROC)TabProc_mode);
+	hTab[0] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_MODE), hDlg, TabProc_mode);
 
 	strcpy (cbuf, "VC");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 1, (LPARAM)&tie);
-	hTab[1] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_VC), hDlg, (DLGPROC)TabProc_cfg);
+	hTab[1] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_VC), hDlg, TabProc_cfg);
 
 	strcpy (cbuf, "Track");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 2, (LPARAM)&tie);
-	hTab[2] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_TRACK), hDlg, (DLGPROC)TabProc_trk);
+	hTab[2] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_TRACK), hDlg, TabProc_trk);
 
 	strcpy (cbuf, "Diagnostic");
 	SendDlgItemMessage (hDlg, IDC_TAB1, TCM_INSERTITEM, 3, (LPARAM)&tie);
-	hTab[3] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_DIAGNOSTIC), hDlg, (DLGPROC)TabProc_diag);
+	hTab[3] = CreateDialog (gParams.hInst, MAKEINTRESOURCE(IDD_CFG_DIAGNOSTIC), hDlg, TabProc_diag);
 
 	SwitchTab (hDlg);
 }
@@ -122,7 +122,7 @@ void TrackIRconfig::Apply (HWND hDlg)
 	if (sscanf (cbuf, "%lf", &t)) trackir->trkmode.speed = max(1, min (100, t))*0.05;
 }
 
-BOOL CALLBACK TrackIRconfig::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TrackIRconfig::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	LPNMHDR nmh;
 
@@ -152,7 +152,7 @@ BOOL CALLBACK TrackIRconfig::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARA
 	return 0;
 }
 
-BOOL CALLBACK TrackIRconfig::TabProc_mode (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TrackIRconfig::TabProc_mode (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TrackIR *trackir = tirc->trackir;
 	switch (uMsg) {
@@ -168,7 +168,7 @@ BOOL CALLBACK TrackIRconfig::TabProc_mode (HWND hTab, UINT uMsg, WPARAM wParam, 
 	return 0;
 }
 
-BOOL CALLBACK TrackIRconfig::TabProc_cfg (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TrackIRconfig::TabProc_cfg (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TrackIR *trackir = tirc->trackir;
 	TrackIR::VCMode &vcmode = trackir->vcmode;
@@ -190,7 +190,7 @@ BOOL CALLBACK TrackIRconfig::TabProc_cfg (HWND hTab, UINT uMsg, WPARAM wParam, L
 	return 0;
 }
 
-BOOL CALLBACK TrackIRconfig::TabProc_trk (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TrackIRconfig::TabProc_trk (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TrackIR *trackir = tirc->trackir;
 	TrackIR::TrackMode &trkmode = trackir->trkmode;
@@ -211,7 +211,7 @@ BOOL CALLBACK TrackIRconfig::TabProc_trk (HWND hTab, UINT uMsg, WPARAM wParam, L
 	return 0;
 }
 
-BOOL CALLBACK TrackIRconfig::TabProc_diag (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK TrackIRconfig::TabProc_diag (HWND hTab, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	TrackIR *trackir = tirc->trackir;
 	switch (uMsg) {
