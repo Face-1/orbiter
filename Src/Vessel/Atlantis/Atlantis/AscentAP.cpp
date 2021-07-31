@@ -1012,7 +1012,7 @@ void AscentApMfd::ToggleOMS2Schedule ()
 
 // --------------------------------------------------------------
 
-int AscentApMfd::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
+LRESULT AscentApMfd::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENED:

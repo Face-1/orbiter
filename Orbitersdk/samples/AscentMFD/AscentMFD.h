@@ -20,7 +20,7 @@ public:
 	void ReadStatus (FILEHANDLE scn);
 	void StoreStatus (void) const;
 	void RecallStatus (void);
-	static int MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
+	static LRESULT MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
 
 private:
 	void InitReferences (void);

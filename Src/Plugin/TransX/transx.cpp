@@ -104,7 +104,7 @@ int TransxMFD::getheight()
 	return H;
 }
 
-int TransxMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
+LRESULT TransxMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 // Standard message parser for messages passed from Orbiter
 {
 	switch (msg) {

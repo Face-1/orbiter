@@ -57,7 +57,7 @@ public:
 	void RecallStatus();
 	void WriteStatus (FILEHANDLE scn) const;
 	void ReadStatus (FILEHANDLE scn);
-	static int MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
+	static LRESULT MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
 
 protected:
 	INTERPRETERHANDLE hInterp;

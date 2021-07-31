@@ -104,7 +104,7 @@ bool MFDTemplate::Update (oapi::Sketchpad *skp)
 }
 
 // MFD message parser
-int MFDTemplate::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
+LRESULT MFDTemplate::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENED:

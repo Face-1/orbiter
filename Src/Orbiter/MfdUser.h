@@ -37,7 +37,7 @@ private:
 	char selkey;
 	MFD *mfd; // pointer to module interface
 	MFD2 *mfd2; // pointer to version 2 interface (0 if not applicable)
-	int (*msgproc)(UINT,UINT,WPARAM,LPARAM);
+	LRESULT (*msgproc)(UINT,UINT,WPARAM,LPARAM);
 };
 
 #endif // !__MFD_USER_H

@@ -167,7 +167,7 @@ void AscentMFD::InitReferences (void)
 }
 
 // message parser
-int AscentMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
+LRESULT AscentMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENEDEX: {

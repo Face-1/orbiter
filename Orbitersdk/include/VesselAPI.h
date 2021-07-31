@@ -6319,7 +6319,7 @@ public:
 	 *   char *name;    // points to the name of the new mode
 	 *   DWORD key;     // mode selection key
 	 *   void *context; // mode-specific context pointer
-	 *   int (*msgproc)(UINT,UINT,WPARAM,LPARAM);   // address of MFD message parser
+	 *   LRESULT (*msgproc)(UINT,UINT,WPARAM,LPARAM);   // address of MFD message parser
 	 * } MFDMODESPEC; \endcode
 	 * \note The mode identifier retrieved by oapiGetMFDMode() for MFD modes
 	 *   registered by this method starts with 1000 for the first registered mode

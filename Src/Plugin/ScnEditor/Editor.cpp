@@ -219,7 +219,7 @@ void ScnEditor::ShowTab (DWORD t)
 	}
 }
 
-int ScnEditor::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT ScnEditor::MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_INITDIALOG:

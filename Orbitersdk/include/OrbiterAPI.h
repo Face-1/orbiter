@@ -1487,14 +1487,14 @@ typedef struct {
 typedef struct {
 	char *name;
 	DWORD key;
-	int (*msgproc)(UINT,UINT,WPARAM,LPARAM);
+	LRESULT (*msgproc)(UINT,UINT,WPARAM,LPARAM);
 } MFDMODESPEC;
 
 typedef struct {
 	char *name;
 	DWORD key;
 	void *context;
-	int (*msgproc)(UINT,UINT,WPARAM,LPARAM);
+	LRESULT (*msgproc)(UINT,UINT,WPARAM,LPARAM);
 } MFDMODESPECEX;
 
 typedef struct {
@@ -5571,7 +5571,7 @@ OAPIFUNC void oapiColourFill (SURFHANDLE tgt, DWORD fillcolor, int tgtx = 0, int
 	*   char *name;    // points to the name of the new mode
 	*   DWORD key;     // mode selection key
 	*   void *context; // mode-specific context pointer
-	*   int (*msgproc)(UINT,UINT,WPARAM,LPARAM);   // address of MFD message parser
+	*   LRESULT (*msgproc)(UINT,UINT,WPARAM,LPARAM);   // address of MFD message parser
 	* } MFDMODESPEC; \endcode
 	* \note See orbitersdk\\samples\\CustomMFD for a sample MFD mode implementation.
 	* \sa oapiUnregisterMFDMode, VESSEL4::RegisterMFDMode

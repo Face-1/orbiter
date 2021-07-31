@@ -36,7 +36,7 @@ public:
 	bool Update (Sketchpad *sketchpad);
 	void WriteStatus(FILEHANDLE scn) const;
 	void ReadStatus(FILEHANDLE scn);
-	static int MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
+	static LRESULT MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam);
 
 	int getwidth();
 	int getheight();

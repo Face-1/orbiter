@@ -36,7 +36,7 @@ public:
 	void DelCustomTabs ();
 	void ShowTab (DWORD t);
 	bool SaveScenario (HWND hDlg);
-	int MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	LRESULT MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	HWND DlgHandle () const { return hDlg; }
 	HINSTANCE InstHandle () const { return hInst; }
