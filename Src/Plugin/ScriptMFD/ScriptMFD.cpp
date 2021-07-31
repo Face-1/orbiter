@@ -424,7 +424,7 @@ LRESULT ScriptMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENEDEX: {
 		MFDMODEOPENSPEC *ospec = (MFDMODEOPENSPEC*)wparam;
-		return (int)(new ScriptMFD (ospec->w, ospec->h, (VESSEL*)lparam, (const SCRIPTMFDMODESPEC*)ospec->spec->context));
+		return (LRESULT)(new ScriptMFD (ospec->w, ospec->h, (VESSEL*)lparam, (const SCRIPTMFDMODESPEC*)ospec->spec->context));
 		}
 	}
 	return 0;

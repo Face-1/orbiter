@@ -172,7 +172,7 @@ LRESULT AscentMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENEDEX: {
 		MFDMODEOPENSPEC *ospec = (MFDMODEOPENSPEC*)wparam;
-		return (int)(new AscentMFD (ospec->w, ospec->h, (VESSEL*)lparam));
+		return (LRESULT)(new AscentMFD (ospec->w, ospec->h, (VESSEL*)lparam));
 		}
 	}
 	return 0;
