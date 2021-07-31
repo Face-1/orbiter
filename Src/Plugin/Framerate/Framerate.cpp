@@ -38,7 +38,7 @@ bool bShowGraph[2] = {true, false}; // show graphs?
 
 void OpenDlgClbk (void *context);
 BOOL CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
-long FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // ==============================================================
 // API interface
@@ -52,7 +52,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	// register the window class for the data graph
 	WNDCLASS wndClass;
 	wndClass.style         = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)Graph_WndProc;
+	wndClass.lpfnWndProc   = Graph_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 4;
 	wndClass.hInstance     = hDLL;
@@ -192,7 +192,7 @@ BOOL CALLBACK MsgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // Graph canvas message handler
 // =================================================================================
 
-long FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL Graph_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_PAINT: {

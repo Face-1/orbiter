@@ -27,7 +27,7 @@ void oapiRegisterCustomControls (HINSTANCE hInst)
 
 	// Register window class for level indicator
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_Gauge;
+	wndClass.lpfnWndProc   = MsgProc_Gauge;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 16;
 	wndClass.hInstance     = hInst;
@@ -39,7 +39,7 @@ void oapiRegisterCustomControls (HINSTANCE hInst)
 	RegisterClass (&wndClass);
 
 	// Register window class for switch
-	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_Switch;
+	wndClass.lpfnWndProc   = MsgProc_Switch;
 	wndClass.cbWndExtra    = 8;
 	wndClass.hbrBackground = g_GDI.hBrush2; //(HBRUSH)GetStockObject (NULL_BRUSH);
 	wndClass.lpszClassName = "OrbiterCtrl_Switch";
@@ -61,7 +61,7 @@ void oapiUnregisterCustomControls (HINSTANCE hInst)
 	DeleteObject (g_GDI.hBrush2);
 }
 
-long FAR PASCAL MsgProc_Gauge (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL MsgProc_Gauge (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static HWND hPrevCapt = NULL;
 	switch (uMsg) {

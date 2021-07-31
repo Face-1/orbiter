@@ -50,7 +50,7 @@ void DlgHelp::RegisterClientClass (HINSTANCE hInstance)
 	// Register help window class
 	WNDCLASS wndClass;
 	wndClass.style         = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)ClientProc;
+	wndClass.lpfnWndProc   = ClientProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hInstance;
@@ -224,7 +224,7 @@ BOOL CALLBACK DlgHelp::DlgProc (HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lPar
 
 // ======================================================================
 
-LONG FAR PASCAL DlgHelp::ClientProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL DlgHelp::ClientProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	RECT r;
 

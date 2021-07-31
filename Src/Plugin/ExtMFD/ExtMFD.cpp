@@ -34,8 +34,8 @@ DWORD g_dwCmd;        // custom function identifier
 
 void OpenDlgClbk (void *context);
 BOOL CALLBACK MsgProc (HWND, UINT, WPARAM, LPARAM);
-extern long FAR PASCAL MFD_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-extern long FAR PASCAL MFD_BtnProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+extern LRESULT FAR PASCAL MFD_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+extern LRESULT FAR PASCAL MFD_BtnProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // ==============================================================
 // API interface
@@ -62,7 +62,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	// Register a window classes for the MFD display and buttons
 	WNDCLASS wndClass;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)MFD_WndProc;
+	wndClass.lpfnWndProc   = MFD_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hDLL;
@@ -73,7 +73,7 @@ DLLCLBK void InitModule (HINSTANCE hDLL)
 	wndClass.lpszClassName = "ExtMFD_Display";
 	RegisterClass (&wndClass);
 
-	wndClass.lpfnWndProc   = (WNDPROC)MFD_BtnProc;
+	wndClass.lpfnWndProc   = MFD_BtnProc;
 	wndClass.hbrBackground = (HBRUSH)GetStockObject (LTGRAY_BRUSH);
 	wndClass.lpszClassName = "ExtMFD_Button";
 	RegisterClass (&wndClass);

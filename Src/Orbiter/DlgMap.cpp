@@ -59,7 +59,7 @@ void MapWin::RegisterWindow (HINSTANCE hInst)
 	// Register map window class
 	WNDCLASS wndClass;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)Map_WndProc;
+	wndClass.lpfnWndProc   = Map_WndProc;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 0;
 	wndClass.hInstance     = hInst;
@@ -291,7 +291,7 @@ MapWin *MapWin::GetMapInstance (HWND hw)
 
 // ======================================================================
 
-long FAR PASCAL MapWin::Map_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL MapWin::Map_WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_CREATE:

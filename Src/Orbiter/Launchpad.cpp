@@ -1064,7 +1064,7 @@ BOOL CALLBACK WaitPageProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return g_pDlg->WaitProc (hWnd, uMsg, wParam, lParam);
 }
 
-long FAR PASCAL MsgProc_CopyrightFrame (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL MsgProc_CopyrightFrame (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//switch (uMsg) {
 	//case WM_PAINT:

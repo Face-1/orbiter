@@ -3,7 +3,7 @@
 
 #include "DlgCtrl.h"
 
-long FAR PASCAL MsgProc_PropertyList (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT FAR PASCAL MsgProc_PropertyList (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 void RegisterPropertyList (HINSTANCE hInst)
 {
@@ -11,7 +11,7 @@ void RegisterPropertyList (HINSTANCE hInst)
 
 	// Register window class for level indicator
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-	wndClass.lpfnWndProc   = (WNDPROC)MsgProc_PropertyList;
+	wndClass.lpfnWndProc   = MsgProc_PropertyList;
 	wndClass.cbClsExtra    = 0;
 	wndClass.cbWndExtra    = 16;
 	wndClass.hInstance     = hInst;
@@ -32,7 +32,7 @@ void UnregisterPropertyList (HINSTANCE hInst)
 	DeleteObject (PropertyList::hBmpArrows);
 }
 
-long FAR PASCAL MsgProc_PropertyList (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL MsgProc_PropertyList (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	PropertyList *pl;
 
