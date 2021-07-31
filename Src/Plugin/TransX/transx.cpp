@@ -109,7 +109,7 @@ LRESULT TransxMFD::MsgProc (UINT msg, UINT mfd, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg) {
 	case OAPI_MSG_MFD_OPENED:
-		return (int) new TransxMFD (LOWORD(wparam), HIWORD(wparam), (VESSEL*)lparam, mfd);
+		return (LRESULT) new TransxMFD (LOWORD(wparam), HIWORD(wparam), (VESSEL*)lparam, mfd);
 	}
 	return 0;
 }
