@@ -77,7 +77,7 @@ jobs:
       run: '7z a "${{ github.workspace }}/out/Orbiter.zip" .'
 
     - name: Upload Build Artifact
-      if: ${{ github.ref == 'refs/heads/c3d9client' }}
+      if: ${{ github.ref == 'refs/heads/d3d9client' }}
       uses: actions/upload-artifact@v2.2.4
       with:
         name: Orbiter-${{ matrix.architecture }}
