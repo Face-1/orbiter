@@ -126,7 +126,7 @@ void GraphicsClient::UnregisterVisObject (OBJHANDLE hObj)
 
 // ======================================================================
 
-int GraphicsClient::clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, DWORD_PTR context)
+int GraphicsClient::clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, UINT context)
 {
 	return 0;
 }
@@ -278,11 +278,11 @@ HWND GraphicsClient::clbkCreateRenderWindow ()
 	if (VideoData.fullscreen) {
 		hWnd = CreateWindow (strWndClass, "", // dummy window
 			WS_POPUP | WS_EX_TOPMOST| WS_VISIBLE,
-			CW_USEDEFAULT, CW_USEDEFAULT, 10, 10, 0, 0, hModule, (LPVOID)this);
+			CW_USEDEFAULT, CW_USEDEFAULT, 10, 10, 0, 0, hModule, 0);
 	} else {
 		hWnd = CreateWindow (strWndClass, "",
 			WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_VISIBLE,
-			CW_USEDEFAULT, CW_USEDEFAULT, VideoData.winw, VideoData.winh, 0, 0, hModule, (LPVOID)this);
+			CW_USEDEFAULT, CW_USEDEFAULT, VideoData.winw, VideoData.winh, 0, 0, hModule, 0);
 	}
 	return hWnd;
 }

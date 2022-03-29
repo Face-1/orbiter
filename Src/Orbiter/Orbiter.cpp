@@ -182,8 +182,7 @@ int _matherr(struct _exception *except )
 // WinMain()
 // Application entry containing message loop
 
-
-INT WINAPI WinMain (HINSTANCE hInstance, HINSTANCE, PSTR strCmdLine, INT nCmdShow)
+INT WINAPI WinMain (HINSTANCE hInstance, HINSTANCE, LPSTR strCmdLine, INT nCmdShow)
 {
 #ifdef INLINEGRAPHICS
 	// determine whether another instance already exists

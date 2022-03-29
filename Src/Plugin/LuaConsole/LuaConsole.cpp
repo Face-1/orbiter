@@ -576,7 +576,7 @@ INT_PTR CALLBACK LuaConsole::DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 	case WM_INITDIALOG:
 		SetFocus (GetDlgItem (hWnd, IDC_TERM));
 		pConsole = (LuaConsole*)lParam;
-		SetWindowLongPtr (GetDlgItem (hWnd, IDC_TERM), GWLP_USERDATA, (LONG_PTR)pConsole);
+		SetWindowLongPtr (GetDlgItem (hWnd, IDC_TERM), GWLP_USERDATA, (LONG)pConsole);
 		return FALSE;
 	case WM_COMMAND:
 		switch (LOWORD (wParam)) {

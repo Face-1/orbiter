@@ -134,7 +134,7 @@ public:
 	 *   from the orbiter core and distributes them to the appropriate
 	 *   visual object.
 	 */
-	int clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, DWORD_PTR context);
+	int clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, UINT context);
 
 	/**
 	 * \brief Return a mesh handle for a visual, defined by its index
@@ -723,7 +723,7 @@ public:
 	 *   of certain events (e.g. adding and deleting meshes)
 	 * \note For currently supported event types, see \ref visevent.
 	 */
-	virtual void clbkEvent (DWORD event, DWORD_PTR context) {}
+	virtual void clbkEvent (DWORD event, UINT context) {}
 
 protected:
 	OBJHANDLE hObject;

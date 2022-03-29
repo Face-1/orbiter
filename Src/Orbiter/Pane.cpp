@@ -858,7 +858,7 @@ void Pane::ScreenToGlobal (int x, int y, Vector &glob) const
 	glob.unify();
 }
 
-bool Pane::OpenMFD (INT_PTR id, int type, ifstream *ifs)
+bool Pane::OpenMFD (size_t id, int type, ifstream *ifs)
 {
 	if (id >= MAXMFD || id < 0) return ((ExternMFD*)id)->SetMode (type);
 	if (panelmode == 1 && id >= 2) return false;
@@ -945,7 +945,7 @@ double Pane::SetMFDRefreshIntervalMultiplier (int id, double multiplier)
 	return prev;
 }
 
-bool Pane::CloseMFD (int id)
+bool Pane::CloseMFD (size_t id)
 {
 	if (panelmode == 1 && id >= 2) return false;
 	if (panelmode == 2 && !mfd[id].exist) return false;
@@ -1157,7 +1157,7 @@ Instrument::Spec Pane::GetVCMFDSpec ()
 	return spec;
 }
 
-void Pane::RepaintMFDButtons (INT_PTR id, Instrument *instr)
+void Pane::RepaintMFDButtons (int id, Instrument *instr)
 {
 	if (id < MAXMFD && id >= 0 && instr == mfd[id].instr) {
 		if (panelmode >= 1) g_focusobj->MFDchanged (id, mfd[id].instr->Type());

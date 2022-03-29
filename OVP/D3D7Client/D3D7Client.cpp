@@ -769,7 +769,7 @@ bool D3D7Client::clbkGetRenderParam (DWORD prm, DWORD *value) const
 // ==============================================================
 // Responds to visual events
 
-int D3D7Client::clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, DWORD_PTR context)
+int D3D7Client::clbkVisEvent (OBJHANDLE hObj, VISHANDLE vis, DWORD msg, UINT context)
 {
 	VisObject *vo = (VisObject*)vis;
 	vo->clbkEvent (msg, context);

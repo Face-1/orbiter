@@ -184,7 +184,7 @@ void Body::UnregisterVisual ()
 	hVis = NULL;
 }
 
-void Body::BroadcastVisMsg (DWORD msg, DWORD_PTR content)
+void Body::BroadcastVisMsg (DWORD msg, UINT content)
 {
 	oapi::GraphicsClient *gc;
 	if (hVis && (gc = g_pOrbiter->GetGraphicsClient())) {

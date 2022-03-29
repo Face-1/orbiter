@@ -192,7 +192,7 @@ public:
 	void ActivatePlanetLabels(bool activate);
 
 	intptr_t FindFirst (int type, _finddata_t *fdata, char *path, char *fname);
-	intptr_t FindNext (intptr_t fh, _finddata_t *fdata, char *fname);
+	int FindNext (intptr_t fh, _finddata_t *fdata, char *fname);
 
 private:
 	char *name; // system's name

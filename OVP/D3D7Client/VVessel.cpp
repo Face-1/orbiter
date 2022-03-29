@@ -70,14 +70,14 @@ void vVessel::GlobalExit ()
 	}
 }
 
-void vVessel::clbkEvent (DWORD event, DWORD_PTR context)
+void vVessel::clbkEvent (DWORD event, UINT context)
 {
 	switch (event) {
 	case EVENT_VESSEL_INSMESH:
-		InsertMesh ((UINT)context);
+		InsertMesh (context);
 		break;
 	case EVENT_VESSEL_DELMESH:
-		DelMesh ((UINT)context);
+		DelMesh (context);
 		break;
 	case EVENT_VESSEL_MESHVISMODE:
 		// todo

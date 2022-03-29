@@ -9,7 +9,7 @@ void OpenHelp (HWND hWnd, const char *file, const char *topic)
 {
 	char topic_file[256];
 	sprintf (topic_file, "%s.htm", topic);
-	HtmlHelp (hWnd, file, HH_DISPLAY_TOPIC, (DWORD_PTR)topic_file);
+	HtmlHelp (hWnd, file, HH_DISPLAY_TOPIC, (DWORD)topic_file);
 }
 
 void OpenDefaultHelp (HWND hWnd, const char *topic)

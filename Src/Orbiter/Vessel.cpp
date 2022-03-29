@@ -3170,7 +3170,7 @@ UINT Vessel::InsertMesh (MESHHANDLE hMesh, UINT idx, const VECTOR3 *ofs)
 
 	meshlist[idx]->hMesh = hMesh; // pointer to preloaded mesh
 	meshlist[idx]->vismode = MESHVIS_EXTERNAL; // external view only by default
-	meshlist[idx]->crc = (DWORD_PTR)hMesh;
+	meshlist[idx]->crc = (DWORD)hMesh;
 	mesh_crc += meshlist[idx]->crc; // encode mesh pointer
 	for (i = 0; i < sizeof(ofs); i++)
 		*((BYTE*)&mesh_crc + (i%4)) += *((BYTE*)&ofs+i); // encode offset
@@ -3221,7 +3221,7 @@ void Vessel::ClearMeshes (bool retain_anim)
 	nmesh = 0;
 	mesh_crc = 0;
 	ScanMeshCaps();
-	BroadcastVisMsg (EVENT_VESSEL_DELMESH, (DWORD_PTR)((UINT)-1)); // notify visual
+	BroadcastVisMsg (EVENT_VESSEL_DELMESH, (UINT)-1); // notify visual
 }
 
 bool Vessel::ShiftMesh (UINT idx, const VECTOR3 &ofs)
@@ -3278,7 +3278,7 @@ int Vessel::MeshModified (MESHHANDLE hMesh, UINT grp, DWORD modflag)
 		DWORD modflag;
 	} moddata = { hMesh, grp, modflag };
 
-	BroadcastVisMsg (EVENT_VESSEL_MODMESHGROUP, (DWORD_PTR)&grp); // notify visual
+	BroadcastVisMsg (EVENT_VESSEL_MODMESHGROUP, (UINT_PTR)&grp); // notify visual
 	return 0;
 }
 

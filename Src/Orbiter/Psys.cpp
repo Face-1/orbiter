@@ -270,7 +270,7 @@ intptr_t PlanetarySystem::FindFirst (int type, _finddata_t *fdata, char *path, c
 	return fh;
 }
 
-intptr_t PlanetarySystem::FindNext (intptr_t fh, _finddata_t *fdata, char *fname)
+int PlanetarySystem::FindNext (intptr_t fh, _finddata_t *fdata, char *fname)
 {
 	intptr_t fn = _findnext (fh, fdata);
 	if (!fn) {
