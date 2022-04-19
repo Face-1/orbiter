@@ -180,12 +180,17 @@ void orbiter::DefVideoTab::EnumerateClients(HWND hTab)
 void orbiter::DefVideoTab::ScanDir(HWND hTab, const PSTR dir)
 {
 	char pattern[256], name[256];
-	sprintf(pattern, "%s\\*.dll", dir);
+	sprintf(pattern, "%s\\*", dir);
 	struct _finddata_t fdata;
 	intptr_t fh = _findfirst(pattern, &fdata);
 	if (fh == -1) return; // nothing found
 	do {
 		sprintf(name, "%s\\%s", dir, fdata.name);
+		if (fdata.attrib & _A_SUBDIR && fdata.name[0]!='.')
+		{
+			ScanDir(hTab, name);
+			continue;
+		}
 		HMODULE hMod = LoadLibraryEx(name, 0, LOAD_LIBRARY_AS_DATAFILE);
 		if (hMod) {
 			char catstr[256];

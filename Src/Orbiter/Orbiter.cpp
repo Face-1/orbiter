@@ -548,7 +548,25 @@ HINSTANCE Orbiter::LoadModule (const char *path, const char *name)
 	sprintf (cbuf, "%s\\%s.dll", path, name);
 
 	register_module = NULL; // clear the module
-	HINSTANCE hi = LoadLibrary (cbuf);
+
+	// Legacy module file search first
+	struct _finddata_t fdata;
+	intptr_t fh = _findfirst(cbuf, &fdata);
+	bool subDirLoad = false;
+	if (fh == -1)
+	{
+		// New directory search
+		sprintf(cbuf, "%s\\%s\\%s.dll", path, name, name);
+		fh = _findfirst(cbuf, &fdata);
+		subDirLoad = true;
+		if (fh == -1)
+		{
+			LOGOUT_ERR("Failed loading module from %s\\%s.dll or %s", path, name, cbuf);
+			return (HINSTANCE)-1;
+		}		
+	}
+	_findclose(fh);	
+	HINSTANCE hi = subDirLoad?LoadLibraryEx(cbuf, NULL, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR):LoadLibrary (cbuf);
 	if (hi) {
 		struct DLLModule *tmp = new struct DLLModule[nmodule+1]; TRACENEW
 		if (nmodule) {
